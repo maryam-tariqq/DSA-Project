@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# Large data files - NEVER commit these
+data/raw/
+data/processed/
+*.json
+*.jsonl
+*.zip
+*.csv
+*.tsv
+
+
+# OS files
+.DS_Store
+Thumbs.db
