@@ -1,13 +1,13 @@
 import json
 import nltk
-from nltk.ccorpus import stopwords
+from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 import os
 
 nltk.download('stopwords')
 
-INPUT_FILE = "data/raw/arxiv_5.json"
-OUTPUT_FILE = "data/processed/preprocessing.json"
+INPUT_FILE = "../../data/raw/arxiv_5.json"
+OUTPUT_FILE = "../../data/processed/preprocessing.json"
 
 stop_words = set(stopwords.words('english'))
 stemmer = PorterStemmer()
@@ -42,3 +42,4 @@ with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
 
 
 print("Preprocessing complete! Saved to", OUTPUT_FILE)
+
