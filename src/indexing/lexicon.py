@@ -2,25 +2,32 @@ import json
 import os
 
 INPUT_FILE = "../../data/processed/preprocessing.json"
-OUTPUT_FILE = "../../data/processed/lexicon.json"
+LEXICON_FILE = "../../data/processed/lexicon.json"
 
+# Step 1: Load existing lexicon (if exists)
+if os.path.exists(LEXICON_FILE):
+    with open(LEXICON_FILE, "r", encoding="utf-8") as f:
+        lexicon = json.load(f)
+    # Ensure keys are str and values are int
+    lexicon = {str(k): int(v) for k, v in lexicon.items()}
+    current_id = max(lexicon.values()) + 1
+else:
+    lexicon = {}
+    current_id = 1
+
+# Step 2: Add new tokens only
 with open(INPUT_FILE, "r", encoding="utf-8") as f:
     docs = json.load(f)
 
-
-lexicon = {}
-current_id = 1
-
 for doc in docs:
     for token in doc["tokens"]:
-        lexicon[token] = current_id
-        current_id += 1
+        if token not in lexicon:
+            lexicon[token] = current_id
+            current_id += 1
 
-
-os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
-
-with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+# Step 3: Save updated lexicon
+os.makedirs(os.path.dirname(LEXICON_FILE), exist_ok=True)
+with open(LEXICON_FILE, "w", encoding="utf-8") as f:
     json.dump(lexicon, f, indent=2)
 
-
-print(f"Lexicon created successfully! Total unique tokens: {len(lexicon)}")
+print(f"Lexicon updated successfully! Total unique tokens: {len(lexicon)}")
