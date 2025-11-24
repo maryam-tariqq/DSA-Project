@@ -1,4 +1,4 @@
-#----FORWARD INDEX-----
+#----FORWARD INDEX----
 import json
 import os
 from collections import defaultdict
