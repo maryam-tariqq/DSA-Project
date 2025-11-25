@@ -6,7 +6,7 @@ import os
 
 nltk.download('stopwords')
 
-INPUT_FILE = "../../data/raw/arxiv_5.json"
+INPUT_FILE = "../../data/raw/arxiv_100k.json"
 OUTPUT_FILE = "../../data/processed/preprocessing.json"
 
 stop_words = set(stopwords.words('english'))
