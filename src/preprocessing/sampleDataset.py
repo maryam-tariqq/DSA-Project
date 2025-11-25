@@ -21,7 +21,12 @@ def make_sample(n=100000):
                     output.append({
                         "id": doc.get("id"),
                         "title": doc.get("title"),
-                        "abstract": doc.get("abstract")
+                        "authors": doc.get("authors"),
+                        "categories": doc.get("categories"),
+                        "report_no": doc.get("report_no"),
+                        "journal-ref":doc.get("journal-ref"),
+                        "abstract": doc.get("abstract"),
+                        "update_date": doc.get("update_date")
                     })
                     count += 1
             except json.JSONDecodeError:
