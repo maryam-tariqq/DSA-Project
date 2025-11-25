@@ -1,10 +1,10 @@
 import json
 
 INPUT_FILE = "../../data/raw/arxiv.json"
-OUTPUT_FILE = "../../data/raw/arxiv_5.json"
+OUTPUT_FILE = "../../data/raw/arxiv_100k.json"
 
 
-def make_sample(n=5):
+def make_sample(n=100000):
     output = []
     count = 0
     skipped = 0
