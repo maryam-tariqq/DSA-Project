@@ -1,47 +1,53 @@
-
-
 #----BARRELS-----
 import json
 import os
 import string
+from nltk.stem import PorterStemmer
+
+stemmer = PorterStemmer()
 
 # ---------- Configuration ----------
 
-LEXICON_FILE = "./data/processed/lexicon.json"
-FORWARD_INDEX_FILE = "./data/processed/forward_index.json"
-BARRELS_FOLDER = "./data/processed/barrels/"
+LEXICON_FILE = "/content/drive/MyDrive/DSA-Project/data/processed/lexicon.json"
+FORWARD_INDEX_FILE = "/content/drive/MyDrive/DSA-Project/data/processed/forward_index.json"
+BARRELS_FOLDER = "/content/drive/MyDrive/DSA-Project/data/processed/barrels/"
 
 # ---------- Load Lexicon ----------
+
 with open(LEXICON_FILE, "r", encoding="utf-8") as f:
     lexicon = json.load(f)  # word -> word_id
 
 # ---------- Load Forward Index ----------
+
 with open(FORWARD_INDEX_FILE, "r", encoding="utf-8") as f:
     forward_index = json.load(f)  # doc_id -> {word_id: positions}
 
 # ---------- Ensure Barrels Folder Exists ----------
+
 os.makedirs(BARRELS_FOLDER, exist_ok=True)
 
 # ---------- Helper functions ----------
+
 def load_barrel(file_path):
     if os.path.exists(file_path):
         with open(file_path, "r", encoding="utf-8") as f:
             return json.load(f)
     return {}
 
-
 def save_barrel(file_path, data):
     with open(file_path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
 
-
 # ---------- Map word_id -> actual word ----------
+
 id_to_word = {str(v): k for k, v in lexicon.items()}
 
 # ---------- Track updated barrels ----------
+
 updated_barrels = {}
 
 # ---------- Process each document ----------
+
 for doc_id, token_positions in forward_index.items():
     for word_id in token_positions.keys():
         word = id_to_word[word_id]
@@ -49,6 +55,9 @@ for doc_id, token_positions in forward_index.items():
         # Skip empty words
         if not word:
             continue
+
+
+        word = stemmer.stem(word.lower())
 
         # Use first 3 letters for multi-level hashing
         # pad with '#' if word < 3 letters
@@ -74,8 +83,8 @@ for doc_id, token_positions in forward_index.items():
         if doc_id not in updated_barrels[w1][w2][w3][word]:
             updated_barrels[w1][w2][w3][word].append(doc_id)
 
-
 # ---------- Save updated barrels ----------
+
 total_words = 0
 for w1, data in updated_barrels.items():
     barrel_file = os.path.join(BARRELS_FOLDER, f"{w1}.json")
@@ -85,6 +94,6 @@ for w1, data in updated_barrels.items():
     barrel_word_count = sum(len(w3_dict) for w2_dict in data.values() for w3_dict in w2_dict.values())
     total_words += barrel_word_count
 
-
 print(f"Total barrels updated/created: {len(updated_barrels)}")
 print(f"Total words across all barrels: {total_words}")
+
