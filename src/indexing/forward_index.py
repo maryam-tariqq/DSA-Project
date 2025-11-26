@@ -1,4 +1,4 @@
-#----FORWARD INDEX----
+#----FORWARD INDEX
 import json
 import os
 from collections import defaultdict
@@ -7,22 +7,22 @@ INPUT_FILE = "./data/processed/preprocessing.json"
 LEXICON_FILE = "./data/processed/lexicon.json"
 FORWARD_INDEX_FILE = "./data/processed/forward_index.json"
 
-# ---------- Load Lexicon ----------
+# here we are loading the lexicon 
 with open(LEXICON_FILE, "r", encoding="utf-8") as f:
     lexicon = {str(k): int(v) for k, v in json.load(f).items()}
 
-# ---------- Load Existing Forward Index (if exists) ----------
+# if existing forward index exists, it loads it 
 if os.path.exists(FORWARD_INDEX_FILE):
     with open(FORWARD_INDEX_FILE, "r", encoding="utf-8") as f:
         forward_index = json.load(f)
 else:
     forward_index = {}
 
-# ---------- Load Preprocessed Documents ----------
+# here we are loading the  Preprocessed Documents 
 with open(INPUT_FILE, "r", encoding="utf-8") as f:
     docs = json.load(f)
 
-# ---------- Process New Documents Only ----------
+#  Processing the new Documents Only 
 added_count = 0
 for doc in docs:
     doc_id = str(doc["id"])  # ensure consistent key type
@@ -42,7 +42,7 @@ for doc in docs:
     forward_index[doc_id] = token_positions
     added_count += 1
 
-# ---------- Save Updated Forward Index ----------
+#  save the updated forward inex
 os.makedirs(os.path.dirname(FORWARD_INDEX_FILE), exist_ok=True)
 with open(FORWARD_INDEX_FILE, "w", encoding="utf-8") as f:
     json.dump(forward_index, f, indent=2)
