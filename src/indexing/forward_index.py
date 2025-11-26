@@ -3,9 +3,9 @@ import json
 import os
 from collections import defaultdict
 
-INPUT_FILE = "./data/processed/preprocessing.json"
-LEXICON_FILE = "./data/processed/lexicon.json"
-FORWARD_INDEX_FILE = "./data/processed/forward_index.json"
+INPUT_FILE = "../../data/processed/preprocessing.json"
+LEXICON_FILE = "../../data/processed/lexicon.json"
+FORWARD_INDEX_FILE = "../../data/processed/forward_index.json"
 
 # here we are loading the lexicon 
 with open(LEXICON_FILE, "r", encoding="utf-8") as f:
