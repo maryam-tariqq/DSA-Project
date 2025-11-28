@@ -18,15 +18,17 @@ def make_sample(n=100000):
                 doc = json.loads(line)
 
                 if "id" in doc:
+                    arxiv_id = doc.get("id")
                     output.append({
-                        "id": doc.get("id"),
+                        "id": arxiv_id,
                         "title": doc.get("title"),
                         "authors": doc.get("authors"),
                         "categories": doc.get("categories"),
                         "report_no": doc.get("report_no"),
-                        "journal-ref":doc.get("journal-ref"),
+                        "journal-ref": doc.get("journal-ref"),
                         "abstract": doc.get("abstract"),
-                        "update_date": doc.get("update_date")
+                        "update_date": doc.get("update_date"),
+                        "paper_url": f"https://arxiv.org/abs/{arxiv_id}"
                     })
                     count += 1
             except json.JSONDecodeError:
