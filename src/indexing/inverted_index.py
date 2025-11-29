@@ -1,143 +1,97 @@
+# inverted_index.py 
+
 import json
 import nltk
 from nltk.corpus import stopwords
 from collections import defaultdict
 import os
 
-# Load stopwords quietly so the script runs without interruptions
 nltk.download('stopwords', quiet=True)
 
-INPUT_FILE = "../../data/processed/preprocessing.json"
-OUTPUT_FILE = "../../data/processed/inverted_index.json"
-LEXICON_FILE = "../../data/processed/lexicon.json"
-
-stop_words = set(stopwords.words('english'))
-
-
-def load_preprocessed_data(file_path):
-    # Reads the preprocessed JSON file and safely returns an empty list if anything goes wrong
-    try:
-        with open(file_path, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except:
-        print("Error: Could not load preprocessed data.")
-        return []
-
+INPUT_FILE = "/content/drive/MyDrive/DSA-Project/data/processed/preprocessing_5.json"   # ← NEW
+OUTPUT_FILE = "/content/drive/MyDrive/DSA-Project/data/processed/inverted_index_5.json"
+LEXICON_FILE = "/content/drive/MyDrive/DSA-Project/data/processed/lexicon.json"
 
 def load_lexicon(file_path):
-    # Loads the word-to-ID lexicon and ensures all keys are stored as strings
     if not os.path.exists(file_path):
         print("Error: Lexicon file not found.")
         return {}
-
-    try:
-        with open(file_path, "r", encoding="utf-8") as f:
-            lexicon = json.load(f)
-            return {str(k): int(v) for k, v in lexicon.items()}
-    except:
-        print("Error: Could not load lexicon.")
-        return {}
-
+    with open(file_path, "r", encoding="utf-8") as f:
+        lexicon = json.load(f)
+        return {str(k): int(v) for k, v in lexicon.items()}
 
 def load_existing_index(file_path):
-    # Loads an already saved inverted index and collects all document IDs already processed
     if not os.path.exists(file_path):
         return {}, set()
+    with open(file_path, "r", encoding="utf-8") as f:
+        inverted_index = json.load(f)
+    processed_ids = set()
+    for doc_dict in inverted_index.values():
+        processed_ids.update(doc_dict.keys())
+    return inverted_index, processed_ids
 
+def load_preprocessed_data(file_path):
     try:
         with open(file_path, "r", encoding="utf-8") as f:
-            inverted_index = json.load(f)
-
-        processed_ids = set()
-        for token_id, doc_dict in inverted_index.items():
-            processed_ids.update(doc_dict.keys())
-
-        return inverted_index, processed_ids
-    except:
-        return {}, set()
-
+            return json.load(f)
+    except Exception as e:
+        print("Error loading preprocessing:", e)
+        return []
 
 def build_inverted_index(docs, existing_index, processed_ids, token_to_id):
-    # Builds or updates the inverted index mapping each token ID to its documents and positions
     inverted_index = defaultdict(lambda: defaultdict(list), existing_index)
-    new_docs_count = 0
+    new_docs = 0
 
     for doc in docs:
-        doc_id = str(doc.get("id"))
-
-        # Skip documents already indexed earlier
+        doc_id = str(doc["id"])
         if doc_id in processed_ids:
             continue
 
-        new_docs_count += 1
-        token_words = doc.get("tokens", [])
+        new_docs += 1
+        tokens_with_meta = doc.get("tokens", [])
 
-        # Add each token’s position into the index
-        for position, token_word in enumerate(token_words):
-            token_id = token_to_id.get(token_word)
+        for entry in tokens_with_meta:
+            token = entry["token"]                    # ← THIS IS THE ONLY CHANGE
+            global_pos = entry["global_pos"]          # ← Use global position
+            token_id = token_to_id.get(token)
             if token_id is not None:
-                token_id_str = str(token_id)
-                inverted_index[token_id_str][doc_id].append(position)
+                inverted_index[str(token_id)][doc_id].append(global_pos)
 
-    # Convert nested structures into plain dicts for JSON saving
-    result = {}
-    for token_id, doc_dict in inverted_index.items():
-        result[token_id] = dict(doc_dict)
+    # Convert to plain dict
+    result = {tid: dict(docs) for tid, docs in inverted_index.items()}
+    return result, new_docs
 
-    return result, new_docs_count
+def save_inverted_index(index, path):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(index, f, indent=2)
+    print(f"Inverted index saved: {len(index)} terms")
 
-
-def save_inverted_index(inverted_index, output_file):
-    # Saves the inverted index into a JSON file and creates folders automatically
-    try:
-        os.makedirs(os.path.dirname(output_file), exist_ok=True)
-        with open(output_file, "w", encoding="utf-8") as f:
-            json.dump(inverted_index, f, indent=2, ensure_ascii=False)
-        print("Inverted index saved successfully.")
-    except Exception as e:
-        print("Error while saving inverted index:", e)
-
-
+# ===================== MAIN =====================
 def main():
-    # Start by loading the lexicon since token IDs are needed for indexing
     token_to_id = load_lexicon(LEXICON_FILE)
-    print(f"Loaded lexicon with {len(token_to_id)} tokens.")
+    print(f"Lexicon loaded: {len(token_to_id):,} terms")
 
-    if not token_to_id:
-        print("Cannot proceed without lexicon.")
-        return
+    existing_index, processed = load_existing_index(OUTPUT_FILE)
+    print(f"Existing index: {len(existing_index)} terms, {len(processed)} docs processed")
 
-    # Load previous index so we only process new documents
-    existing_index, processed_ids = load_existing_index(OUTPUT_FILE)
-    print(f"Existing index has {len(existing_index)} token IDs and {len(processed_ids)} processed documents.")
-
-    # Load the preprocessed tokenized documents
     docs = load_preprocessed_data(INPUT_FILE)
-    print(f"Loaded {len(docs)} documents from preprocessing file.")
+    print(f"Loaded {len(docs)} documents from preprocessing_final.json")
 
     if not docs:
-        print("No documents found. Run preprocessing first.")
+        print("No documents. Run preprocessing_final.py first!")
         return
 
-    # Build the updated index using only new documents
-    inverted_index, new_docs_count = build_inverted_index(
-        docs, existing_index, processed_ids, token_to_id
-    )
+    new_index, new_count = build_inverted_index(docs, existing_index, processed, token_to_id)
 
-    if new_docs_count == 0:
-        print("No new documents to add to the index.")
+    if new_count == 0:
+        print("No new documents to index.")
         return
 
-    print(f"Indexed {new_docs_count} new documents.")
-    print(f"Final index has {len(inverted_index)} unique token IDs.")
-
-    # Count how many token-document pairs exist in the index
-    total_postings = sum(len(doc_dict) for doc_dict in inverted_index.values())
-    print(f"Total postings (token-document pairs): {total_postings}")
-
-    # Save the updated index
-    save_inverted_index(inverted_index, OUTPUT_FILE)
-
+    save_inverted_index(new_index, OUTPUT_FILE)
+    total_postings = sum(len(d) for d in new_index.values())
+    print(f"Added {new_count} new documents")
+    print(f"Final inverted index: {len(new_index)} terms, {total_postings} postings")
 
 if __name__ == "__main__":
     main()
