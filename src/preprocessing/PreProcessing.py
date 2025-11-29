@@ -19,8 +19,6 @@ with open(INPUT_FILE, "r", encoding="utf-8") as f:
 processed_data = []
 
 for doc in docs:
-    text_parts = []
-
     # TITLE & ABSTRACT (stemmed)
     title = doc.get("title") or ""
     abstract = doc.get("abstract") or ""
@@ -35,7 +33,7 @@ for doc in docs:
         if len(w) > 1 and w not in stop_words
     ]
 
-  
+
     # AUTHORS (un-stemmed)
     authors = doc.get("authors")
     if isinstance(authors, list):
@@ -47,38 +45,43 @@ for doc in docs:
     authors_text = re.sub(r'[^a-z\s]', '', authors_text)
     authors_tokens = authors_text.split()
 
-    # merge multi-word surnames
+    # Merge multi-word surnames - store BOTH original AND merged tokens
     merged_authors_tokens = []
     skip_next = 0
     for i, token in enumerate(authors_tokens):
         if skip_next:
             skip_next -= 1
             continue
-        # simple merge heuristic: if 'van' or 'de' or 'der' etc. appears
+        
+        # Check if it's a surname prefix
         if token in ['van', 'von', 'de', 'der', 'den', 'la', 'le']:
+            merged_authors_tokens.append(token)  # Store original prefix
             if i+1 < len(authors_tokens):
-                merged_token = token + authors_tokens[i+1]
-                merged_authors_tokens.append(merged_token)
+                merged_token = token + authors_tokens[i+1]  # e.g., "vander"
+                merged_authors_tokens.append(merged_token)  # Store merged
+                merged_authors_tokens.append(authors_tokens[i+1])  # Store next part
                 skip_next = 1
-            else:
-                merged_authors_tokens.append(token)
+            # If prefix is at end, just append it (already done above)
         else:
             merged_authors_tokens.append(token)
 
-    
+
     # CATEGORIES (un-stemmed)
     categories = doc.get("categories") or ""
     categories_text = categories.lower()
+    
     # Keep letters & dots for combined token
     categories_text = re.sub(r'[^a-z0-9\.]', ' ', categories_text)
     categories_tokens = categories_text.split()
-    # Also split dots for more flexible search: cs.AI -> cs, ai
+    
+    # Store both combined and split versions
     split_categories_tokens = []
     for cat in categories_tokens:
-        split_categories_tokens.append(cat)  # combined token
-        split_categories_tokens.extend(cat.split('.'))  # split token
+        split_categories_tokens.append(cat)  # combined token (e.g., "cs.ai")
+        parts = cat.split('.')
+        split_categories_tokens.extend(parts)  # split tokens (e.g., "cs", "ai")
 
-  
+
     # JOURNAL REF & REPORT NO (un-stemmed)
     journal = doc.get("journal-ref") or ""
     report_no = doc.get("report_no") or ""
@@ -88,14 +91,18 @@ for doc in docs:
         t = re.sub(r'[^a-z0-9\s]', ' ', t)
         journal_report_tokens.extend(t.split())
 
- 
+
     # COMBINE ALL TOKENS
     all_tokens = (
-        title_abstract_tokens + 
-        merged_authors_tokens + 
-        split_categories_tokens + 
+        title_abstract_tokens +
+        merged_authors_tokens +
+        split_categories_tokens +
         journal_report_tokens
     )
+    
+    # REMOVE DUPLICATES while preserving order
+    # Use this for inverted index / boolean search
+    all_tokens = list(dict.fromkeys(all_tokens))
 
     processed_data.append({
         "id": doc["id"],
@@ -109,4 +116,5 @@ os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
 with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
     json.dump(processed_data, f, indent=2)
 
-print("Preprocessing complete! Saved to", OUTPUT_FILE)
+print(f"Preprocessing complete! Processed {len(processed_data)} documents.")
+print(f"Saved to {OUTPUT_FILE}")
