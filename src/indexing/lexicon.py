@@ -2,8 +2,8 @@ import json
 import os
 
 
-INPUT_FILE = "../../data/processed/preprocessing.json"
-LEXICON_FILE = "../../data/processed/lexicon.json"
+INPUT_FILE = "/content/drive/MyDrive/DSA-Project/data/processed/preprocessing.json"
+LEXICON_FILE = "/content/drive/MyDrive/DSA-Project/data/processed/lexicon.json"
 
 # Load lexicon if it exists, otherwise return empty & starting ID
 def load_existing_lexicon():
@@ -41,7 +41,7 @@ def update_lexicon(lexicon, next_id, docs):
 
 
 def save_lexicon(lexicon):
-    
+
     os.makedirs(os.path.dirname(LEXICON_FILE), exist_ok=True)
     with open(LEXICON_FILE, "w", encoding="utf-8") as f:
         json.dump(lexicon, f, indent=2)
