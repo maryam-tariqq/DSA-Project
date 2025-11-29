@@ -16,58 +16,97 @@ stemmer = PorterStemmer()
 with open(INPUT_FILE, "r", encoding="utf-8") as f:
     docs = json.load(f)
 
-
 processed_data = []
 
 for doc in docs:
-    # Combine all searchable text fields
     text_parts = []
-    
-    # Title and abstract (main content)
-    text_parts.append(doc.get("title") or "")
-    text_parts.append(doc.get("abstract") or "")
-    
-    # Authors (people search for papers by author names)
-    text_parts.append(doc.get("authors") or "")
-    
-    # Categories (e.g., "cs.AI", "math.CO" - useful for filtering)
-    text_parts.append(doc.get("categories") or "")
-    
-    # Journal reference (e.g., "Nature Physics" - prestigious journals)
-    text_parts.append(doc.get("journal-ref") or "")
-    
-    # Report number (sometimes used in citations)
-    text_parts.append(doc.get("report_no") or "")
-    
-    # Combine all text
-    text = " ".join(text_parts)
-    
-    # Convert to lowercase
-    text = text.lower()
-    
-    # Remove special characters but keep letters, numbers, and spaces
-    text = re.sub(r'[^a-z0-9\s]', ' ', text)
-    
-    # Split into words
-    words = text.split()
-    
-    # Stem and filter stopwords
-    words = [
-        stemmer.stem(w)
-        for w in words
-        if len(w) > 1 and w not in stop_words  # Keep words longer than 1 char
+
+    # TITLE & ABSTRACT (stemmed)
+    title = doc.get("title") or ""
+    abstract = doc.get("abstract") or ""
+    combined_text = f"{title} {abstract}".lower()
+    # Normalize punctuation
+    combined_text = re.sub(r'[^a-z0-9\s]', ' ', combined_text)
+    # Tokenize
+    title_abstract_tokens = combined_text.split()
+    # Stem & remove stopwords
+    title_abstract_tokens = [
+        stemmer.stem(w) for w in title_abstract_tokens
+        if len(w) > 1 and w not in stop_words
     ]
+
+  
+    # AUTHORS (un-stemmed)
+    authors = doc.get("authors")
+    if isinstance(authors, list):
+        authors_text = " ".join(authors)
+    else:
+        authors_text = authors or ""
+    authors_text = authors_text.lower()
+    # Keep letters & spaces only, remove punctuation
+    authors_text = re.sub(r'[^a-z\s]', '', authors_text)
+    authors_tokens = authors_text.split()
+
+    # merge multi-word surnames
+    merged_authors_tokens = []
+    skip_next = 0
+    for i, token in enumerate(authors_tokens):
+        if skip_next:
+            skip_next -= 1
+            continue
+        # simple merge heuristic: if 'van' or 'de' or 'der' etc. appears
+        if token in ['van', 'von', 'de', 'der', 'den', 'la', 'le']:
+            if i+1 < len(authors_tokens):
+                merged_token = token + authors_tokens[i+1]
+                merged_authors_tokens.append(merged_token)
+                skip_next = 1
+            else:
+                merged_authors_tokens.append(token)
+        else:
+            merged_authors_tokens.append(token)
+
+    
+    # CATEGORIES (un-stemmed)
+    categories = doc.get("categories") or ""
+    categories_text = categories.lower()
+    # Keep letters & dots for combined token
+    categories_text = re.sub(r'[^a-z0-9\.]', ' ', categories_text)
+    categories_tokens = categories_text.split()
+    # Also split dots for more flexible search: cs.AI -> cs, ai
+    split_categories_tokens = []
+    for cat in categories_tokens:
+        split_categories_tokens.append(cat)  # combined token
+        split_categories_tokens.extend(cat.split('.'))  # split token
+
+  
+    # JOURNAL REF & REPORT NO (un-stemmed)
+    journal = doc.get("journal-ref") or ""
+    report_no = doc.get("report_no") or ""
+    journal_report_tokens = []
+    for t in [journal, report_no]:
+        t = t.lower()
+        t = re.sub(r'[^a-z0-9\s]', ' ', t)
+        journal_report_tokens.extend(t.split())
+
+ 
+    # COMBINE ALL TOKENS
+    all_tokens = (
+        title_abstract_tokens + 
+        merged_authors_tokens + 
+        split_categories_tokens + 
+        journal_report_tokens
+    )
 
     processed_data.append({
         "id": doc["id"],
-        "tokens": words
+        "tokens": all_tokens
     })
 
 
-os.makedirs("../../data/processed", exist_ok=True)
+# SAVE OUTPUT
+os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
 
 with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
     json.dump(processed_data, f, indent=2)
-
 
 print("Preprocessing complete! Saved to", OUTPUT_FILE)
