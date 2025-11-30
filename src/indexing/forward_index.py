@@ -8,7 +8,7 @@ INPUT_PRE = "../../data/processed/preprocessing.json"
 LEXICON_FILE = "../../data/processed/lexicon.json"
 OUTPUT_INDEX = "../../data/processed/forward_index.json"
 
-# Field name to index mapping (O(1) lookup)
+# Field name to index mapping (lookup in O(1))
 FIELD_MAP = {
     "title": 2,
     "authors": 3,
@@ -43,25 +43,25 @@ for doc in docs:
     for t in tokens:
         token = t["token"]
 
-        # Skip tokens not in lexicon
+        # Here skip the tokens not present in the lexicon
         if token not in lexicon:
             continue
 
         wid = str(lexicon[token])
         entry = data[wid]
 
-        # Update total frequency
+        # Updating the total frequency
         entry[0] += 1
 
-        # Store position
+        # Here we are storing theposition
         entry[1].append(t["global_pos"])
 
-        # Update field-specific frequency (O(1) lookup)
+        # Field-specific frequency update (O(1) lookup)
         field = t.get("field")
         if field in FIELD_MAP:
             entry[FIELD_MAP[field]] += 1
 
-    # Convert to regular dict (no copying)
+   # Convert to a standard dictionary (no copying)
     forward_index[doc_id] = dict(data)
 
     processed += 1
@@ -71,7 +71,7 @@ for doc in docs:
 print("Writing index to disk...")
 os.makedirs(os.path.dirname(OUTPUT_INDEX), exist_ok=True)
 
-# Write with minimal whitespace for smaller file size
+# To reduce file size, write with as little whitespace as possible.
 with open(OUTPUT_INDEX, "w", encoding="utf-8") as f:
     json.dump(forward_index, f, separators=(',', ':'))
 
