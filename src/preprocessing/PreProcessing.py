@@ -9,8 +9,8 @@ import os
 
 nltk.download('stopwords', quiet=True)
 
-INPUT_FILE = "/content/drive/MyDrive/DSA-Project/data/raw/arxiv_100k.json"
-OUTPUT_FILE = "/content/drive/MyDrive/DSA-Project/data/processed/preprocessing.json"
+INPUT_FILE = "../../data/raw/arxiv_100k.json"
+OUTPUT_FILE = "../../data/processed/preprocessing.json"
 
 stop_words = set(stopwords.words('english'))
 stemmer = PorterStemmer()
@@ -27,7 +27,7 @@ for doc in docs:
     enriched_tokens = []
     global_pos = 0
 
-    # === 1. TITLE + ABSTRACT  ===
+    # Title + abstract
     title = (doc.get("title") or "").lower()
     abstract = (doc.get("abstract") or "").lower()
     combined = f"{title} {abstract}"
@@ -45,7 +45,7 @@ for doc in docs:
             })
             global_pos += 1
 
-    # === 2. AUTHORS (unstemmed + merged surnames) ===
+    # 2. Authors
     authors = doc.get("authors")
     if isinstance(authors, list):
         authors_text = " ".join(authors)
@@ -70,7 +70,7 @@ for doc in docs:
         })
         global_pos += 1
 
-        # Handle van/von/de/etc.
+        # Handle various complex author names that are present in the dataset
         if token in ['van', 'von', 'de', 'der', 'den', 'la', 'le', 'di'] and i + 1 < len(author_parts):
             merged = token + author_parts[i+1]
             enriched_tokens.append({
@@ -83,20 +83,20 @@ for doc in docs:
         else:
             i += 1
 
-    # === 3. CATEGORIES (split + combined) ===
+    # Categories 
     categories = doc.get("categories", "").lower()
     cats = [c.strip() for c in categories.split() if c.strip()]
     for cat in cats:
-        # combined: cs.ai
+        
         enriched_tokens.append({"token": cat.replace(".", ""), "field": "category", "global_pos": global_pos})
         global_pos += 1
-        # split: cs, ai
+        
         for part in cat.split('.'):
             if len(part) > 1:
                 enriched_tokens.append({"token": part, "field": "category", "global_pos": global_pos})
                 global_pos += 1
 
-    # === 4. JOURNAL-REF & REPORT_NO ===
+    # Journal_ref & Report_No 
     for field in [doc.get("journal-ref", ""), doc.get("report_no", "")]:
         if not field:
             continue
@@ -109,10 +109,10 @@ for doc in docs:
 
     processed_data.append({
         "id": arxiv_id,
-        "tokens": enriched_tokens  # Rich field-aware tokens
+        "tokens": enriched_tokens  
     })
 
-# Save
+# Save the clean, tokenized data
 os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
 with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
     json.dump(processed_data, f, indent=2)
