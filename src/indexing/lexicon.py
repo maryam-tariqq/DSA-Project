@@ -2,8 +2,8 @@ import json
 import os
 
 
-INPUT_FILE = "/content/drive/MyDrive/DSA-Project/data/processed/preprocessing.json"
-LEXICON_FILE = "/content/drive/MyDrive/DSA-Project/data/processed/lexicon.json"
+INPUT_FILE = "../../data/processed/preprocessing.json"
+LEXICON_FILE = "../../data/processed/lexicon.json"
 
 # If the lexicon is available, load it; if not, return an empty and initial ID.
 def load_existing_lexicon():
@@ -28,10 +28,19 @@ def load_documents():
     with open(INPUT_FILE, "r", encoding="utf-8") as f:
         return json.load(f)
 
-# Here we are adding the  new tokens to the lexicon
+# Adding new tokens to the lexicon
 def update_lexicon(lexicon, next_id, docs):
     for doc in docs:
         for token in doc.get("tokens", []):
+
+            # If token is a dict, try to extract the actual text value
+            if isinstance(token, dict):
+                # Adjust the key name depending on the preprocessing output
+                token = token.get("token") or token.get("word") or ""
+            
+            if not isinstance(token, str):
+                continue
+
             token = token.strip()
             if token and token not in lexicon:
                 lexicon[token] = next_id
