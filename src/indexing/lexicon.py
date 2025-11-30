@@ -31,17 +31,18 @@ def load_documents():
 # Adding new tokens to the lexicon
 def update_lexicon(lexicon, next_id, docs):
     for doc in docs:
-        for token in doc.get("tokens", []):
+        for tok in doc.get("tokens", []):   # rename token → tok to avoid confusion
 
-            # If token is a dict, try to extract the actual text value
-            if isinstance(token, dict):
-                # Adjust the key name depending on the preprocessing output
-                token = token.get("token") or token.get("word") or ""
-            
-            if not isinstance(token, str):
+            # Must extract the actual token string
+            if isinstance(tok, dict):
+                token = tok.get("token", "")
+            elif isinstance(tok, str):
+                token = tok
+            else:
                 continue
 
             token = token.strip()
+
             if token and token not in lexicon:
                 lexicon[token] = next_id
                 next_id += 1
