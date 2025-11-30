@@ -1,0 +1,1967 @@
+[
+  {
+    "id": "0704.0001",
+    "tokens": [
+      {
+        "token": "calcul",
+        "field": "title",
+        "global_pos": 0
+      },
+      {
+        "token": "prompt",
+        "field": "title",
+        "global_pos": 1
+      },
+      {
+        "token": "diphoton",
+        "field": "title",
+        "global_pos": 2
+      },
+      {
+        "token": "product",
+        "field": "title",
+        "global_pos": 3
+      },
+      {
+        "token": "cross",
+        "field": "title",
+        "global_pos": 4
+      },
+      {
+        "token": "section",
+        "field": "title",
+        "global_pos": 5
+      },
+      {
+        "token": "tevatron",
+        "field": "title",
+        "global_pos": 6
+      },
+      {
+        "token": "lhc",
+        "field": "title",
+        "global_pos": 7
+      },
+      {
+        "token": "energi",
+        "field": "title",
+        "global_pos": 8
+      },
+      {
+        "token": "fulli",
+        "field": "abstract",
+        "global_pos": 9
+      },
+      {
+        "token": "differenti",
+        "field": "abstract",
+        "global_pos": 10
+      },
+      {
+        "token": "calcul",
+        "field": "title",
+        "global_pos": 11
+      },
+      {
+        "token": "perturb",
+        "field": "abstract",
+        "global_pos": 12
+      },
+      {
+        "token": "quantum",
+        "field": "abstract",
+        "global_pos": 13
+      },
+      {
+        "token": "chromodynam",
+        "field": "abstract",
+        "global_pos": 14
+      },
+      {
+        "token": "present",
+        "field": "abstract",
+        "global_pos": 15
+      },
+      {
+        "token": "product",
+        "field": "title",
+        "global_pos": 16
+      },
+      {
+        "token": "massiv",
+        "field": "abstract",
+        "global_pos": 17
+      },
+      {
+        "token": "photon",
+        "field": "abstract",
+        "global_pos": 18
+      },
+      {
+        "token": "pair",
+        "field": "abstract",
+        "global_pos": 19
+      },
+      {
+        "token": "hadron",
+        "field": "abstract",
+        "global_pos": 20
+      },
+      {
+        "token": "collid",
+        "field": "abstract",
+        "global_pos": 21
+      },
+      {
+        "token": "next",
+        "field": "abstract",
+        "global_pos": 22
+      },
+      {
+        "token": "lead",
+        "field": "abstract",
+        "global_pos": 23
+      },
+      {
+        "token": "order",
+        "field": "abstract",
+        "global_pos": 24
+      },
+      {
+        "token": "perturb",
+        "field": "abstract",
+        "global_pos": 25
+      },
+      {
+        "token": "contribut",
+        "field": "abstract",
+        "global_pos": 26
+      },
+      {
+        "token": "quark",
+        "field": "abstract",
+        "global_pos": 27
+      },
+      {
+        "token": "antiquark",
+        "field": "abstract",
+        "global_pos": 28
+      },
+      {
+        "token": "gluon",
+        "field": "abstract",
+        "global_pos": 29
+      },
+      {
+        "token": "anti",
+        "field": "abstract",
+        "global_pos": 30
+      },
+      {
+        "token": "quark",
+        "field": "abstract",
+        "global_pos": 31
+      },
+      {
+        "token": "gluon",
+        "field": "abstract",
+        "global_pos": 32
+      },
+      {
+        "token": "gluon",
+        "field": "abstract",
+        "global_pos": 33
+      },
+      {
+        "token": "subprocess",
+        "field": "abstract",
+        "global_pos": 34
+      },
+      {
+        "token": "includ",
+        "field": "abstract",
+        "global_pos": 35
+      },
+      {
+        "token": "well",
+        "field": "abstract",
+        "global_pos": 36
+      },
+      {
+        "token": "order",
+        "field": "abstract",
+        "global_pos": 37
+      },
+      {
+        "token": "resumm",
+        "field": "abstract",
+        "global_pos": 38
+      },
+      {
+        "token": "initi",
+        "field": "abstract",
+        "global_pos": 39
+      },
+      {
+        "token": "state",
+        "field": "abstract",
+        "global_pos": 40
+      },
+      {
+        "token": "gluon",
+        "field": "abstract",
+        "global_pos": 41
+      },
+      {
+        "token": "radiat",
+        "field": "abstract",
+        "global_pos": 42
+      },
+      {
+        "token": "valid",
+        "field": "abstract",
+        "global_pos": 43
+      },
+      {
+        "token": "next",
+        "field": "abstract",
+        "global_pos": 44
+      },
+      {
+        "token": "next",
+        "field": "abstract",
+        "global_pos": 45
+      },
+      {
+        "token": "lead",
+        "field": "abstract",
+        "global_pos": 46
+      },
+      {
+        "token": "logarithm",
+        "field": "abstract",
+        "global_pos": 47
+      },
+      {
+        "token": "accuraci",
+        "field": "abstract",
+        "global_pos": 48
+      },
+      {
+        "token": "region",
+        "field": "abstract",
+        "global_pos": 49
+      },
+      {
+        "token": "phase",
+        "field": "abstract",
+        "global_pos": 50
+      },
+      {
+        "token": "space",
+        "field": "abstract",
+        "global_pos": 51
+      },
+      {
+        "token": "specifi",
+        "field": "abstract",
+        "global_pos": 52
+      },
+      {
+        "token": "calcul",
+        "field": "title",
+        "global_pos": 53
+      },
+      {
+        "token": "reliabl",
+        "field": "abstract",
+        "global_pos": 54
+      },
+      {
+        "token": "good",
+        "field": "abstract",
+        "global_pos": 55
+      },
+      {
+        "token": "agreement",
+        "field": "abstract",
+        "global_pos": 56
+      },
+      {
+        "token": "demonstr",
+        "field": "abstract",
+        "global_pos": 57
+      },
+      {
+        "token": "data",
+        "field": "abstract",
+        "global_pos": 58
+      },
+      {
+        "token": "fermilab",
+        "field": "abstract",
+        "global_pos": 59
+      },
+      {
+        "token": "tevatron",
+        "field": "title",
+        "global_pos": 60
+      },
+      {
+        "token": "predict",
+        "field": "abstract",
+        "global_pos": 61
+      },
+      {
+        "token": "made",
+        "field": "abstract",
+        "global_pos": 62
+      },
+      {
+        "token": "detail",
+        "field": "abstract",
+        "global_pos": 63
+      },
+      {
+        "token": "test",
+        "field": "abstract",
+        "global_pos": 64
+      },
+      {
+        "token": "cdf",
+        "field": "abstract",
+        "global_pos": 65
+      },
+      {
+        "token": "data",
+        "field": "abstract",
+        "global_pos": 66
+      },
+      {
+        "token": "predict",
+        "field": "abstract",
+        "global_pos": 67
+      },
+      {
+        "token": "shown",
+        "field": "abstract",
+        "global_pos": 68
+      },
+      {
+        "token": "distribut",
+        "field": "abstract",
+        "global_pos": 69
+      },
+      {
+        "token": "diphoton",
+        "field": "title",
+        "global_pos": 70
+      },
+      {
+        "token": "pair",
+        "field": "abstract",
+        "global_pos": 71
+      },
+      {
+        "token": "produc",
+        "field": "abstract",
+        "global_pos": 72
+      },
+      {
+        "token": "energi",
+        "field": "abstract",
+        "global_pos": 73
+      },
+      {
+        "token": "larg",
+        "field": "abstract",
+        "global_pos": 74
+      },
+      {
+        "token": "hadron",
+        "field": "abstract",
+        "global_pos": 75
+      },
+      {
+        "token": "collid",
+        "field": "abstract",
+        "global_pos": 76
+      },
+      {
+        "token": "lhc",
+        "field": "title",
+        "global_pos": 77
+      },
+      {
+        "token": "distribut",
+        "field": "abstract",
+        "global_pos": 78
+      },
+      {
+        "token": "diphoton",
+        "field": "title",
+        "global_pos": 79
+      },
+      {
+        "token": "pair",
+        "field": "abstract",
+        "global_pos": 80
+      },
+      {
+        "token": "decay",
+        "field": "abstract",
+        "global_pos": 81
+      },
+      {
+        "token": "higg",
+        "field": "abstract",
+        "global_pos": 82
+      },
+      {
+        "token": "boson",
+        "field": "abstract",
+        "global_pos": 83
+      },
+      {
+        "token": "contrast",
+        "field": "abstract",
+        "global_pos": 84
+      },
+      {
+        "token": "produc",
+        "field": "abstract",
+        "global_pos": 85
+      },
+      {
+        "token": "qcd",
+        "field": "abstract",
+        "global_pos": 86
+      },
+      {
+        "token": "process",
+        "field": "abstract",
+        "global_pos": 87
+      },
+      {
+        "token": "lhc",
+        "field": "title",
+        "global_pos": 88
+      },
+      {
+        "token": "show",
+        "field": "abstract",
+        "global_pos": 89
+      },
+      {
+        "token": "enhanc",
+        "field": "abstract",
+        "global_pos": 90
+      },
+      {
+        "token": "sensit",
+        "field": "abstract",
+        "global_pos": 91
+      },
+      {
+        "token": "signal",
+        "field": "abstract",
+        "global_pos": 92
+      },
+      {
+        "token": "obtain",
+        "field": "abstract",
+        "global_pos": 93
+      },
+      {
+        "token": "judici",
+        "field": "abstract",
+        "global_pos": 94
+      },
+      {
+        "token": "select",
+        "field": "abstract",
+        "global_pos": 95
+      },
+      {
+        "token": "event",
+        "field": "abstract",
+        "global_pos": 96
+      },
+      {
+        "token": "balazs",
+        "field": "author",
+        "global_pos": 97
+      },
+      {
+        "token": "berger",
+        "field": "author",
+        "global_pos": 98
+      },
+      {
+        "token": "nadolsky",
+        "field": "author",
+        "global_pos": 99
+      },
+      {
+        "token": "cp",
+        "field": "author",
+        "global_pos": 100
+      },
+      {
+        "token": "yuan",
+        "field": "author",
+        "global_pos": 101
+      },
+      {
+        "token": "hep-ph",
+        "field": "category",
+        "global_pos": 102
+      },
+      {
+        "token": "hep-ph",
+        "field": "category",
+        "global_pos": 103
+      },
+      {
+        "token": "phys",
+        "field": "journal",
+        "global_pos": 104
+      },
+      {
+        "token": "rev",
+        "field": "journal",
+        "global_pos": 105
+      },
+      {
+        "token": "d76",
+        "field": "journal",
+        "global_pos": 106
+      },
+      {
+        "token": "013009",
+        "field": "journal",
+        "global_pos": 107
+      },
+      {
+        "token": "2007",
+        "field": "journal",
+        "global_pos": 108
+      }
+    ]
+  },
+  {
+    "id": "0704.0002",
+    "tokens": [
+      {
+        "token": "sparsiti",
+        "field": "abstract",
+        "global_pos": 0
+      },
+      {
+        "token": "certifi",
+        "field": "abstract",
+        "global_pos": 1
+      },
+      {
+        "token": "graph",
+        "field": "title",
+        "global_pos": 2
+      },
+      {
+        "token": "decomposit",
+        "field": "title",
+        "global_pos": 3
+      },
+      {
+        "token": "describ",
+        "field": "abstract",
+        "global_pos": 4
+      },
+      {
+        "token": "new",
+        "field": "abstract",
+        "global_pos": 5
+      },
+      {
+        "token": "algorithm",
+        "field": "abstract",
+        "global_pos": 6
+      },
+      {
+        "token": "ell",
+        "field": "abstract",
+        "global_pos": 7
+      },
+      {
+        "token": "pebbl",
+        "field": "abstract",
+        "global_pos": 8
+      },
+      {
+        "token": "game",
+        "field": "abstract",
+        "global_pos": 9
+      },
+      {
+        "token": "color",
+        "field": "abstract",
+        "global_pos": 10
+      },
+      {
+        "token": "use",
+        "field": "abstract",
+        "global_pos": 11
+      },
+      {
+        "token": "obtain",
+        "field": "abstract",
+        "global_pos": 12
+      },
+      {
+        "token": "character",
+        "field": "abstract",
+        "global_pos": 13
+      },
+      {
+        "token": "famili",
+        "field": "abstract",
+        "global_pos": 14
+      },
+      {
+        "token": "ell",
+        "field": "abstract",
+        "global_pos": 15
+      },
+      {
+        "token": "spars",
+        "field": "abstract",
+        "global_pos": 16
+      },
+      {
+        "token": "graph",
+        "field": "abstract",
+        "global_pos": 17
+      },
+      {
+        "token": "algorithm",
+        "field": "abstract",
+        "global_pos": 18
+      },
+      {
+        "token": "solut",
+        "field": "abstract",
+        "global_pos": 19
+      },
+      {
+        "token": "famili",
+        "field": "abstract",
+        "global_pos": 20
+      },
+      {
+        "token": "problem",
+        "field": "abstract",
+        "global_pos": 21
+      },
+      {
+        "token": "concern",
+        "field": "abstract",
+        "global_pos": 22
+      },
+      {
+        "token": "tree",
+        "field": "abstract",
+        "global_pos": 23
+      },
+      {
+        "token": "decomposit",
+        "field": "title",
+        "global_pos": 24
+      },
+      {
+        "token": "graph",
+        "field": "abstract",
+        "global_pos": 25
+      },
+      {
+        "token": "special",
+        "field": "abstract",
+        "global_pos": 26
+      },
+      {
+        "token": "instanc",
+        "field": "abstract",
+        "global_pos": 27
+      },
+      {
+        "token": "spars",
+        "field": "abstract",
+        "global_pos": 28
+      },
+      {
+        "token": "graph",
+        "field": "abstract",
+        "global_pos": 29
+      },
+      {
+        "token": "appear",
+        "field": "abstract",
+        "global_pos": 30
+      },
+      {
+        "token": "rigid",
+        "field": "abstract",
+        "global_pos": 31
+      },
+      {
+        "token": "theori",
+        "field": "abstract",
+        "global_pos": 32
+      },
+      {
+        "token": "receiv",
+        "field": "abstract",
+        "global_pos": 33
+      },
+      {
+        "token": "increas",
+        "field": "abstract",
+        "global_pos": 34
+      },
+      {
+        "token": "attent",
+        "field": "abstract",
+        "global_pos": 35
+      },
+      {
+        "token": "recent",
+        "field": "abstract",
+        "global_pos": 36
+      },
+      {
+        "token": "year",
+        "field": "abstract",
+        "global_pos": 37
+      },
+      {
+        "token": "particular",
+        "field": "abstract",
+        "global_pos": 38
+      },
+      {
+        "token": "color",
+        "field": "abstract",
+        "global_pos": 39
+      },
+      {
+        "token": "pebbl",
+        "field": "abstract",
+        "global_pos": 40
+      },
+      {
+        "token": "gener",
+        "field": "abstract",
+        "global_pos": 41
+      },
+      {
+        "token": "strengthen",
+        "field": "abstract",
+        "global_pos": 42
+      },
+      {
+        "token": "previou",
+        "field": "abstract",
+        "global_pos": 43
+      },
+      {
+        "token": "result",
+        "field": "abstract",
+        "global_pos": 44
+      },
+      {
+        "token": "lee",
+        "field": "abstract",
+        "global_pos": 45
+      },
+      {
+        "token": "streinu",
+        "field": "abstract",
+        "global_pos": 46
+      },
+      {
+        "token": "give",
+        "field": "abstract",
+        "global_pos": 47
+      },
+      {
+        "token": "new",
+        "field": "abstract",
+        "global_pos": 48
+      },
+      {
+        "token": "proof",
+        "field": "abstract",
+        "global_pos": 49
+      },
+      {
+        "token": "tutt",
+        "field": "abstract",
+        "global_pos": 50
+      },
+      {
+        "token": "nash",
+        "field": "abstract",
+        "global_pos": 51
+      },
+      {
+        "token": "william",
+        "field": "abstract",
+        "global_pos": 52
+      },
+      {
+        "token": "character",
+        "field": "abstract",
+        "global_pos": 53
+      },
+      {
+        "token": "arbor",
+        "field": "abstract",
+        "global_pos": 54
+      },
+      {
+        "token": "also",
+        "field": "abstract",
+        "global_pos": 55
+      },
+      {
+        "token": "present",
+        "field": "abstract",
+        "global_pos": 56
+      },
+      {
+        "token": "new",
+        "field": "abstract",
+        "global_pos": 57
+      },
+      {
+        "token": "decomposit",
+        "field": "abstract",
+        "global_pos": 58
+      },
+      {
+        "token": "certifi",
+        "field": "abstract",
+        "global_pos": 59
+      },
+      {
+        "token": "sparsiti",
+        "field": "abstract",
+        "global_pos": 60
+      },
+      {
+        "token": "base",
+        "field": "abstract",
+        "global_pos": 61
+      },
+      {
+        "token": "ell",
+        "field": "abstract",
+        "global_pos": 62
+      },
+      {
+        "token": "pebbl",
+        "field": "abstract",
+        "global_pos": 63
+      },
+      {
+        "token": "game",
+        "field": "abstract",
+        "global_pos": 64
+      },
+      {
+        "token": "color",
+        "field": "abstract",
+        "global_pos": 65
+      },
+      {
+        "token": "work",
+        "field": "abstract",
+        "global_pos": 66
+      },
+      {
+        "token": "also",
+        "field": "abstract",
+        "global_pos": 67
+      },
+      {
+        "token": "expos",
+        "field": "abstract",
+        "global_pos": 68
+      },
+      {
+        "token": "connect",
+        "field": "abstract",
+        "global_pos": 69
+      },
+      {
+        "token": "pebbl",
+        "field": "abstract",
+        "global_pos": 70
+      },
+      {
+        "token": "game",
+        "field": "abstract",
+        "global_pos": 71
+      },
+      {
+        "token": "algorithm",
+        "field": "abstract",
+        "global_pos": 72
+      },
+      {
+        "token": "previou",
+        "field": "abstract",
+        "global_pos": 73
+      },
+      {
+        "token": "spars",
+        "field": "abstract",
+        "global_pos": 74
+      },
+      {
+        "token": "graph",
+        "field": "title",
+        "global_pos": 75
+      },
+      {
+        "token": "algorithm",
+        "field": "abstract",
+        "global_pos": 76
+      },
+      {
+        "token": "gabow",
+        "field": "abstract",
+        "global_pos": 77
+      },
+      {
+        "token": "gabow",
+        "field": "abstract",
+        "global_pos": 78
+      },
+      {
+        "token": "westermann",
+        "field": "abstract",
+        "global_pos": 79
+      },
+      {
+        "token": "hendrickson",
+        "field": "abstract",
+        "global_pos": 80
+      },
+      {
+        "token": "ileana",
+        "field": "author",
+        "global_pos": 81
+      },
+      {
+        "token": "streinu",
+        "field": "author",
+        "global_pos": 82
+      },
+      {
+        "token": "and",
+        "field": "author",
+        "global_pos": 83
+      },
+      {
+        "token": "louis",
+        "field": "author",
+        "global_pos": 84
+      },
+      {
+        "token": "theran",
+        "field": "author",
+        "global_pos": 85
+      },
+      {
+        "token": "mathco",
+        "field": "category",
+        "global_pos": 86
+      },
+      {
+        "token": "math",
+        "field": "category",
+        "global_pos": 87
+      },
+      {
+        "token": "co",
+        "field": "category",
+        "global_pos": 88
+      },
+      {
+        "token": "cscg",
+        "field": "category",
+        "global_pos": 89
+      },
+      {
+        "token": "cs",
+        "field": "category",
+        "global_pos": 90
+      },
+      {
+        "token": "cg",
+        "field": "category",
+        "global_pos": 91
+      }
+    ]
+  },
+  {
+    "id": "0704.0003",
+    "tokens": [
+      {
+        "token": "evolut",
+        "field": "title",
+        "global_pos": 0
+      },
+      {
+        "token": "earth",
+        "field": "abstract",
+        "global_pos": 1
+      },
+      {
+        "token": "moon",
+        "field": "abstract",
+        "global_pos": 2
+      },
+      {
+        "token": "system",
+        "field": "title",
+        "global_pos": 3
+      },
+      {
+        "token": "base",
+        "field": "title",
+        "global_pos": 4
+      },
+      {
+        "token": "dark",
+        "field": "title",
+        "global_pos": 5
+      },
+      {
+        "token": "matter",
+        "field": "title",
+        "global_pos": 6
+      },
+      {
+        "token": "field",
+        "field": "title",
+        "global_pos": 7
+      },
+      {
+        "token": "fluid",
+        "field": "title",
+        "global_pos": 8
+      },
+      {
+        "token": "model",
+        "field": "title",
+        "global_pos": 9
+      },
+      {
+        "token": "evolut",
+        "field": "title",
+        "global_pos": 10
+      },
+      {
+        "token": "earth",
+        "field": "abstract",
+        "global_pos": 11
+      },
+      {
+        "token": "moon",
+        "field": "abstract",
+        "global_pos": 12
+      },
+      {
+        "token": "system",
+        "field": "title",
+        "global_pos": 13
+      },
+      {
+        "token": "describ",
+        "field": "abstract",
+        "global_pos": 14
+      },
+      {
+        "token": "dark",
+        "field": "title",
+        "global_pos": 15
+      },
+      {
+        "token": "matter",
+        "field": "title",
+        "global_pos": 16
+      },
+      {
+        "token": "field",
+        "field": "title",
+        "global_pos": 17
+      },
+      {
+        "token": "fluid",
+        "field": "title",
+        "global_pos": 18
+      },
+      {
+        "token": "model",
+        "field": "title",
+        "global_pos": 19
+      },
+      {
+        "token": "propos",
+        "field": "abstract",
+        "global_pos": 20
+      },
+      {
+        "token": "meet",
+        "field": "abstract",
+        "global_pos": 21
+      },
+      {
+        "token": "divis",
+        "field": "abstract",
+        "global_pos": 22
+      },
+      {
+        "token": "particl",
+        "field": "abstract",
+        "global_pos": 23
+      },
+      {
+        "token": "field",
+        "field": "title",
+        "global_pos": 24
+      },
+      {
+        "token": "2004",
+        "field": "abstract",
+        "global_pos": 25
+      },
+      {
+        "token": "american",
+        "field": "abstract",
+        "global_pos": 26
+      },
+      {
+        "token": "physic",
+        "field": "abstract",
+        "global_pos": 27
+      },
+      {
+        "token": "societi",
+        "field": "abstract",
+        "global_pos": 28
+      },
+      {
+        "token": "current",
+        "field": "abstract",
+        "global_pos": 29
+      },
+      {
+        "token": "behavior",
+        "field": "abstract",
+        "global_pos": 30
+      },
+      {
+        "token": "earth",
+        "field": "abstract",
+        "global_pos": 31
+      },
+      {
+        "token": "moon",
+        "field": "abstract",
+        "global_pos": 32
+      },
+      {
+        "token": "system",
+        "field": "title",
+        "global_pos": 33
+      },
+      {
+        "token": "agre",
+        "field": "abstract",
+        "global_pos": 34
+      },
+      {
+        "token": "model",
+        "field": "title",
+        "global_pos": 35
+      },
+      {
+        "token": "well",
+        "field": "abstract",
+        "global_pos": 36
+      },
+      {
+        "token": "gener",
+        "field": "abstract",
+        "global_pos": 37
+      },
+      {
+        "token": "pattern",
+        "field": "abstract",
+        "global_pos": 38
+      },
+      {
+        "token": "evolut",
+        "field": "title",
+        "global_pos": 39
+      },
+      {
+        "token": "moon",
+        "field": "abstract",
+        "global_pos": 40
+      },
+      {
+        "token": "earth",
+        "field": "abstract",
+        "global_pos": 41
+      },
+      {
+        "token": "system",
+        "field": "title",
+        "global_pos": 42
+      },
+      {
+        "token": "describ",
+        "field": "abstract",
+        "global_pos": 43
+      },
+      {
+        "token": "model",
+        "field": "title",
+        "global_pos": 44
+      },
+      {
+        "token": "agre",
+        "field": "abstract",
+        "global_pos": 45
+      },
+      {
+        "token": "geolog",
+        "field": "abstract",
+        "global_pos": 46
+      },
+      {
+        "token": "fossil",
+        "field": "abstract",
+        "global_pos": 47
+      },
+      {
+        "token": "evid",
+        "field": "abstract",
+        "global_pos": 48
+      },
+      {
+        "token": "closest",
+        "field": "abstract",
+        "global_pos": 49
+      },
+      {
+        "token": "distanc",
+        "field": "abstract",
+        "global_pos": 50
+      },
+      {
+        "token": "moon",
+        "field": "abstract",
+        "global_pos": 51
+      },
+      {
+        "token": "earth",
+        "field": "abstract",
+        "global_pos": 52
+      },
+      {
+        "token": "259000",
+        "field": "abstract",
+        "global_pos": 53
+      },
+      {
+        "token": "km",
+        "field": "abstract",
+        "global_pos": 54
+      },
+      {
+        "token": "billion",
+        "field": "abstract",
+        "global_pos": 55
+      },
+      {
+        "token": "year",
+        "field": "abstract",
+        "global_pos": 56
+      },
+      {
+        "token": "ago",
+        "field": "abstract",
+        "global_pos": 57
+      },
+      {
+        "token": "far",
+        "field": "abstract",
+        "global_pos": 58
+      },
+      {
+        "token": "beyond",
+        "field": "abstract",
+        "global_pos": 59
+      },
+      {
+        "token": "roch",
+        "field": "abstract",
+        "global_pos": 60
+      },
+      {
+        "token": "limit",
+        "field": "abstract",
+        "global_pos": 61
+      },
+      {
+        "token": "result",
+        "field": "abstract",
+        "global_pos": 62
+      },
+      {
+        "token": "suggest",
+        "field": "abstract",
+        "global_pos": 63
+      },
+      {
+        "token": "tidal",
+        "field": "abstract",
+        "global_pos": 64
+      },
+      {
+        "token": "friction",
+        "field": "abstract",
+        "global_pos": 65
+      },
+      {
+        "token": "may",
+        "field": "abstract",
+        "global_pos": 66
+      },
+      {
+        "token": "primari",
+        "field": "abstract",
+        "global_pos": 67
+      },
+      {
+        "token": "caus",
+        "field": "abstract",
+        "global_pos": 68
+      },
+      {
+        "token": "evolut",
+        "field": "title",
+        "global_pos": 69
+      },
+      {
+        "token": "earth",
+        "field": "abstract",
+        "global_pos": 70
+      },
+      {
+        "token": "moon",
+        "field": "abstract",
+        "global_pos": 71
+      },
+      {
+        "token": "system",
+        "field": "title",
+        "global_pos": 72
+      },
+      {
+        "token": "averag",
+        "field": "abstract",
+        "global_pos": 73
+      },
+      {
+        "token": "dark",
+        "field": "title",
+        "global_pos": 74
+      },
+      {
+        "token": "matter",
+        "field": "title",
+        "global_pos": 75
+      },
+      {
+        "token": "field",
+        "field": "title",
+        "global_pos": 76
+      },
+      {
+        "token": "fluid",
+        "field": "title",
+        "global_pos": 77
+      },
+      {
+        "token": "constant",
+        "field": "abstract",
+        "global_pos": 78
+      },
+      {
+        "token": "deriv",
+        "field": "abstract",
+        "global_pos": 79
+      },
+      {
+        "token": "earth",
+        "field": "abstract",
+        "global_pos": 80
+      },
+      {
+        "token": "moon",
+        "field": "abstract",
+        "global_pos": 81
+      },
+      {
+        "token": "system",
+        "field": "title",
+        "global_pos": 82
+      },
+      {
+        "token": "data",
+        "field": "abstract",
+        "global_pos": 83
+      },
+      {
+        "token": "39",
+        "field": "abstract",
+        "global_pos": 84
+      },
+      {
+        "token": "10",
+        "field": "abstract",
+        "global_pos": 85
+      },
+      {
+        "token": "22",
+        "field": "abstract",
+        "global_pos": 86
+      },
+      {
+        "token": "model",
+        "field": "title",
+        "global_pos": 87
+      },
+      {
+        "token": "predict",
+        "field": "abstract",
+        "global_pos": 88
+      },
+      {
+        "token": "mar",
+        "field": "abstract",
+        "global_pos": 89
+      },
+      {
+        "token": "rotat",
+        "field": "abstract",
+        "global_pos": 90
+      },
+      {
+        "token": "also",
+        "field": "abstract",
+        "global_pos": 91
+      },
+      {
+        "token": "slow",
+        "field": "abstract",
+        "global_pos": 92
+      },
+      {
+        "token": "angular",
+        "field": "abstract",
+        "global_pos": 93
+      },
+      {
+        "token": "acceler",
+        "field": "abstract",
+        "global_pos": 94
+      },
+      {
+        "token": "rate",
+        "field": "abstract",
+        "global_pos": 95
+      },
+      {
+        "token": "38",
+        "field": "abstract",
+        "global_pos": 96
+      },
+      {
+        "token": "10",
+        "field": "abstract",
+        "global_pos": 97
+      },
+      {
+        "token": "22",
+        "field": "abstract",
+        "global_pos": 98
+      },
+      {
+        "token": "rad",
+        "field": "abstract",
+        "global_pos": 99
+      },
+      {
+        "token": "hongjun",
+        "field": "author",
+        "global_pos": 100
+      },
+      {
+        "token": "pan",
+        "field": "author",
+        "global_pos": 101
+      },
+      {
+        "token": "physicsgen-ph",
+        "field": "category",
+        "global_pos": 102
+      },
+      {
+        "token": "physics",
+        "field": "category",
+        "global_pos": 103
+      },
+      {
+        "token": "gen-ph",
+        "field": "category",
+        "global_pos": 104
+      }
+    ]
+  },
+  {
+    "id": "0704.0004",
+    "tokens": [
+      {
+        "token": "determin",
+        "field": "title",
+        "global_pos": 0
+      },
+      {
+        "token": "stirl",
+        "field": "title",
+        "global_pos": 1
+      },
+      {
+        "token": "cycl",
+        "field": "title",
+        "global_pos": 2
+      },
+      {
+        "token": "number",
+        "field": "title",
+        "global_pos": 3
+      },
+      {
+        "token": "count",
+        "field": "title",
+        "global_pos": 4
+      },
+      {
+        "token": "unlabel",
+        "field": "title",
+        "global_pos": 5
+      },
+      {
+        "token": "acycl",
+        "field": "title",
+        "global_pos": 6
+      },
+      {
+        "token": "singl",
+        "field": "abstract",
+        "global_pos": 7
+      },
+      {
+        "token": "sourc",
+        "field": "abstract",
+        "global_pos": 8
+      },
+      {
+        "token": "automata",
+        "field": "title",
+        "global_pos": 9
+      },
+      {
+        "token": "show",
+        "field": "abstract",
+        "global_pos": 10
+      },
+      {
+        "token": "determin",
+        "field": "title",
+        "global_pos": 11
+      },
+      {
+        "token": "stirl",
+        "field": "title",
+        "global_pos": 12
+      },
+      {
+        "token": "cycl",
+        "field": "title",
+        "global_pos": 13
+      },
+      {
+        "token": "number",
+        "field": "title",
+        "global_pos": 14
+      },
+      {
+        "token": "count",
+        "field": "title",
+        "global_pos": 15
+      },
+      {
+        "token": "unlabel",
+        "field": "title",
+        "global_pos": 16
+      },
+      {
+        "token": "acycl",
+        "field": "title",
+        "global_pos": 17
+      },
+      {
+        "token": "singl",
+        "field": "abstract",
+        "global_pos": 18
+      },
+      {
+        "token": "sourc",
+        "field": "abstract",
+        "global_pos": 19
+      },
+      {
+        "token": "automata",
+        "field": "title",
+        "global_pos": 20
+      },
+      {
+        "token": "proof",
+        "field": "abstract",
+        "global_pos": 21
+      },
+      {
+        "token": "involv",
+        "field": "abstract",
+        "global_pos": 22
+      },
+      {
+        "token": "biject",
+        "field": "abstract",
+        "global_pos": 23
+      },
+      {
+        "token": "automata",
+        "field": "title",
+        "global_pos": 24
+      },
+      {
+        "token": "certain",
+        "field": "abstract",
+        "global_pos": 25
+      },
+      {
+        "token": "mark",
+        "field": "abstract",
+        "global_pos": 26
+      },
+      {
+        "token": "lattic",
+        "field": "abstract",
+        "global_pos": 27
+      },
+      {
+        "token": "path",
+        "field": "abstract",
+        "global_pos": 28
+      },
+      {
+        "token": "sign",
+        "field": "abstract",
+        "global_pos": 29
+      },
+      {
+        "token": "revers",
+        "field": "abstract",
+        "global_pos": 30
+      },
+      {
+        "token": "involut",
+        "field": "abstract",
+        "global_pos": 31
+      },
+      {
+        "token": "evalu",
+        "field": "abstract",
+        "global_pos": 32
+      },
+      {
+        "token": "determin",
+        "field": "title",
+        "global_pos": 33
+      },
+      {
+        "token": "david",
+        "field": "author",
+        "global_pos": 34
+      },
+      {
+        "token": "callan",
+        "field": "author",
+        "global_pos": 35
+      },
+      {
+        "token": "mathco",
+        "field": "category",
+        "global_pos": 36
+      },
+      {
+        "token": "math",
+        "field": "category",
+        "global_pos": 37
+      },
+      {
+        "token": "co",
+        "field": "category",
+        "global_pos": 38
+      }
+    ]
+  },
+  {
+    "id": "0704.0005",
+    "tokens": [
+      {
+        "token": "dyadic",
+        "field": "title",
+        "global_pos": 0
+      },
+      {
+        "token": "lambda",
+        "field": "abstract",
+        "global_pos": 1
+      },
+      {
+        "token": "alpha",
+        "field": "abstract",
+        "global_pos": 2
+      },
+      {
+        "token": "lambda",
+        "field": "abstract",
+        "global_pos": 3
+      },
+      {
+        "token": "alpha",
+        "field": "abstract",
+        "global_pos": 4
+      },
+      {
+        "token": "paper",
+        "field": "abstract",
+        "global_pos": 5
+      },
+      {
+        "token": "show",
+        "field": "abstract",
+        "global_pos": 6
+      },
+      {
+        "token": "comput",
+        "field": "abstract",
+        "global_pos": 7
+      },
+      {
+        "token": "lambda",
+        "field": "abstract",
+        "global_pos": 8
+      },
+      {
+        "token": "alpha",
+        "field": "abstract",
+        "global_pos": 9
+      },
+      {
+        "token": "norm",
+        "field": "abstract",
+        "global_pos": 10
+      },
+      {
+        "token": "alpha",
+        "field": "abstract",
+        "global_pos": 11
+      },
+      {
+        "token": "ge",
+        "field": "abstract",
+        "global_pos": 12
+      },
+      {
+        "token": "use",
+        "field": "abstract",
+        "global_pos": 13
+      },
+      {
+        "token": "dyadic",
+        "field": "title",
+        "global_pos": 14
+      },
+      {
+        "token": "grid",
+        "field": "abstract",
+        "global_pos": 15
+      },
+      {
+        "token": "result",
+        "field": "abstract",
+        "global_pos": 16
+      },
+      {
+        "token": "consequ",
+        "field": "abstract",
+        "global_pos": 17
+      },
+      {
+        "token": "descript",
+        "field": "abstract",
+        "global_pos": 18
+      },
+      {
+        "token": "hardi",
+        "field": "abstract",
+        "global_pos": 19
+      },
+      {
+        "token": "space",
+        "field": "abstract",
+        "global_pos": 20
+      },
+      {
+        "token": "term",
+        "field": "abstract",
+        "global_pos": 21
+      },
+      {
+        "token": "dyadic",
+        "field": "title",
+        "global_pos": 22
+      },
+      {
+        "token": "special",
+        "field": "abstract",
+        "global_pos": 23
+      },
+      {
+        "token": "atom",
+        "field": "abstract",
+        "global_pos": 24
+      },
+      {
+        "token": "wael",
+        "field": "author",
+        "global_pos": 25
+      },
+      {
+        "token": "abushammala",
+        "field": "author",
+        "global_pos": 26
+      },
+      {
+        "token": "and",
+        "field": "author",
+        "global_pos": 27
+      },
+      {
+        "token": "alberto",
+        "field": "author",
+        "global_pos": 28
+      },
+      {
+        "token": "torchinsky",
+        "field": "author",
+        "global_pos": 29
+      },
+      {
+        "token": "mathca",
+        "field": "category",
+        "global_pos": 30
+      },
+      {
+        "token": "math",
+        "field": "category",
+        "global_pos": 31
+      },
+      {
+        "token": "ca",
+        "field": "category",
+        "global_pos": 32
+      },
+      {
+        "token": "mathfa",
+        "field": "category",
+        "global_pos": 33
+      },
+      {
+        "token": "math",
+        "field": "category",
+        "global_pos": 34
+      },
+      {
+        "token": "fa",
+        "field": "category",
+        "global_pos": 35
+      },
+      {
+        "token": "illinois",
+        "field": "journal",
+        "global_pos": 36
+      },
+      {
+        "token": "math",
+        "field": "journal",
+        "global_pos": 37
+      },
+      {
+        "token": "52",
+        "field": "journal",
+        "global_pos": 38
+      },
+      {
+        "token": "2008",
+        "field": "journal",
+        "global_pos": 39
+      },
+      {
+        "token": "no",
+        "field": "journal",
+        "global_pos": 40
+      },
+      {
+        "token": "681",
+        "field": "journal",
+        "global_pos": 41
+      },
+      {
+        "token": "689",
+        "field": "journal",
+        "global_pos": 42
+      }
+    ]
+  }
+]
