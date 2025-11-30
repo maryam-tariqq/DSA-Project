@@ -5,13 +5,13 @@ import os
 INPUT_FILE = "/content/drive/MyDrive/DSA-Project/data/processed/preprocessing.json"
 LEXICON_FILE = "/content/drive/MyDrive/DSA-Project/data/processed/lexicon.json"
 
-# Load lexicon if it exists, otherwise return empty & starting ID
+# If the lexicon is available, load it; if not, return an empty and initial ID.
 def load_existing_lexicon():
     if os.path.exists(LEXICON_FILE):
         with open(LEXICON_FILE, "r", encoding="utf-8") as f:
             lexicon = json.load(f)
 
-        # Ensure ID consistency
+        # Ensuring the consistency of ID
         lexicon = {str(k): int(v) for k, v in lexicon.items()}
         next_id = max(lexicon.values()) + 1
     else:
@@ -20,7 +20,7 @@ def load_existing_lexicon():
 
     return lexicon, next_id
 
-# Load preprocessed tokens from file
+# Here we are loading the  preprocessed tokens from the file
 def load_documents():
     if not os.path.exists(INPUT_FILE):
         raise FileNotFoundError(f"Input preprocessing file not found: {INPUT_FILE}")
@@ -28,7 +28,7 @@ def load_documents():
     with open(INPUT_FILE, "r", encoding="utf-8") as f:
         return json.load(f)
 
-# Add new tokens to lexicon
+# Here we are adding the  new tokens to the lexicon
 def update_lexicon(lexicon, next_id, docs):
     for doc in docs:
         for token in doc.get("tokens", []):
