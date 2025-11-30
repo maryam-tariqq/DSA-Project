@@ -23,11 +23,11 @@ processed_data = []
 for doc in docs:
     arxiv_id = doc["id"]
 
-    # List of (stemmed_token, field, global_position)
+    # List of stemmed_token, field, global_position
     enriched_tokens = []
     global_pos = 0
 
-    # === 1. TITLE + ABSTRACT (stemmed) ===
+    # === 1. TITLE + ABSTRACT  ===
     title = (doc.get("title") or "").lower()
     abstract = (doc.get("abstract") or "").lower()
     combined = f"{title} {abstract}"
