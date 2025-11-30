@@ -7,8 +7,8 @@ INPUT_PRE = "../../data/processed/preprocessing.json"
 LEXICON_FILE = "../../data/processed/lexicon.json"
 OUTPUT_INDEX = "../../data/processed/inverted_index.json"
 
-# Quick lookup map - way faster than if-elif chains
-# Maps field names to their position in our compact array
+# Fast lookup map—much quicker than if-elif chains
+ # Associates field names with their locations within our small array
 FIELD_MAP = {
     "title": 2,
     "authors": 3,
@@ -29,79 +29,76 @@ with open(INPUT_PRE) as f:
 
 print(f"Processing {len(docs)} documents...")
 
-# Check if we've already built an index before
-# If yes, we'll only add new documents (incremental indexing)
+# Verify whether we have previously created an index; if so, we will only add new documents (incremental indexing).
 if os.path.exists(OUTPUT_INDEX):
     print("Loading existing inverted index...")
     with open(OUTPUT_INDEX) as f:
         inverted_index = json.load(f)
     
-    # Figure out which documents we've already processed
+    # Determine which documents have already been processed.
     processed_ids = set()
     for token_data in inverted_index.values():
         for doc_id in token_data.keys():
             processed_ids.add(doc_id)
     print(f"Existing: {len(inverted_index)} tokens, {len(processed_ids)} docs")
 else:
-    # Starting fresh - no existing index
+    #Starting from scratch with no preexisting index
     inverted_index = {}
     processed_ids = set()
 
 new_docs_count = 0
 processed = 0
 
-# Process each document
+# here we Processing each document
 for doc in docs:
     doc_id = str(doc["id"])
     
-    # Skip documents we've already indexed
+    # Ignore documents that we have already indexed.
     if doc_id in processed_ids:
         continue
     
     new_docs_count += 1
 
-    # Inverted index structure: token_id -> doc_id -> [stats]
-    # This lets us quickly find "which documents contain token X?"
+    # Index structure inverted: token_id -> doc_id -> [stats]
+     # We can quickly determine "which documents contain token X?" thanks to this.
     tokens = doc.get("tokens", [])
 
     for t in tokens:
         token = t["token"]
 
-        # Skip tokens that aren't in our lexicon
+        # Skipping the  tokens that aren't in our lexicon
         if token not in lexicon:
             continue
 
         wid = str(lexicon[token])
         
-        # Create an entry for this token if it's the first time we see it
+       # If this token appears for the first time, create an entry for it.
         if wid not in inverted_index:
             inverted_index[wid] = {}
         
-        # Create stats array for this doc under this token
-        # [total_freq, [positions], title_freq, authors_freq, ...]
+        # Under this token, create a stats array for this document: [total_freq, [positions], title_freq, authors_freq,...]
         if doc_id not in inverted_index[wid]:
             inverted_index[wid][doc_id] = [0, [], 0, 0, 0, 0, 0, 0, 0]
         
         entry = inverted_index[wid][doc_id]
 
-        # Bump up the total count
+        # Increase the overall count
         entry[0] += 1
 
-        # Remember where this token appeared
+        # Recall the location of this token's appearance
         entry[1].append(t["global_pos"])
 
-        # Track which field this token came from
-        # Title matches are worth more than abstract matches for ranking
+       # Keep track of the field from which this token originated. # For ranking purposes, title matches are more valuable than abstract matches.
         field = t.get("field")
         if field in FIELD_MAP:
             entry[FIELD_MAP[field]] += 1
 
     processed += 1
-    # Show progress every 10k docs so we know it's not frozen
+    # To ensure it's not frozen, display progress every 10,000 documents.
     if processed % 10000 == 0:
         print(f"Processed {processed}/{len(docs)} documents...")
 
-# Save our work
+# Saving our work
 if new_docs_count == 0:
     print("No new documents to index.")
 else:
