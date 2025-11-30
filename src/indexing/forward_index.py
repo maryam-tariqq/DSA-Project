@@ -1,48 +1,85 @@
-# forward_index.py 
-
-import json, os
+# forward_index.py
+import json
+import os
 from collections import defaultdict
+from array import array
 
-INPUT_PRE = "/content/drive/MyDrive/DSA-Project/data/processed/preprocessing.json"
-LEXICON_FILE = "/content/drive/MyDrive/DSA-Project/data/processed/lexicon.json"
-OUTPUT_INDEX = "/content/drive/MyDrive/DSA-Project/data/processed/forward_index.json"
+INPUT_PRE = "../../data/processed/preprocessing.json"
+LEXICON_FILE = "../../data/processed/lexicon.json"
+OUTPUT_INDEX = "../../data/processed/forward_index.json"
 
+# Field name to index mapping (O(1) lookup)
+FIELD_MAP = {
+    "title": 2,
+    "authors": 3,
+    "categories": 4,
+    "report_no": 5,
+    "journal": 6,
+    "abstract": 7,
+    "update_date": 8
+}
+
+print("Loading lexicon...")
 with open(LEXICON_FILE) as f:
     lexicon = json.load(f)
 
+print("Loading documents...")
 with open(INPUT_PRE) as f:
     docs = json.load(f)
 
+print(f"Processing {len(docs)} documents...")
+
 forward_index = {}
+processed = 0
 
 for doc in docs:
     doc_id = str(doc["id"])
-    data = defaultdict(lambda: {
-        "frequency": 0,
-        "positions": [],
-        "fields": defaultdict(int),
-        "in_title": False,
-        "in_author": False,
-        "in_category": False
-    })
 
-    for t in doc["tokens"]:
+    # Format: [total_freq, [positions], title_freq, authors_freq, ...]
+    data = defaultdict(lambda: [0, [], 0, 0, 0, 0, 0, 0, 0])
+
+    tokens = doc.get("tokens", [])
+
+    for t in tokens:
         token = t["token"]
-        if token not in lexicon: continue
+
+        # Skip tokens not in lexicon
+        if token not in lexicon:
+            continue
+
         wid = str(lexicon[token])
-        d = data[wid]
-        d["frequency"] += 1
-        d["positions"].append(t["global_pos"])
-        d["fields"][t["field"]] += 1
-        if t["field"] == "title": d["in_title"] = True
-        if t["field"] == "author": d["in_author"] = True
-        if t["field"] == "category": d["in_category"] = True
+        entry = data[wid]
 
-    forward_index[doc_id] = {k: dict(v) for k, v in data.items()}
+        # Update total frequency
+        entry[0] += 1
 
+        # Store position
+        entry[1].append(t["global_pos"])
+
+        # Update field-specific frequency (O(1) lookup)
+        field = t.get("field")
+        if field in FIELD_MAP:
+            entry[FIELD_MAP[field]] += 1
+
+    # Convert to regular dict (no copying)
+    forward_index[doc_id] = dict(data)
+
+    processed += 1
+    if processed % 10000 == 0:
+        print(f"Processed {processed}/{len(docs)} documents...")
+
+print("Writing index to disk...")
 os.makedirs(os.path.dirname(OUTPUT_INDEX), exist_ok=True)
-with open(OUTPUT_INDEX, "w", encoding="utf-8") as f:
-    json.dump(forward_index, f, indent=2)
 
-print(f"Forward index built with 'frequency' and field boosts!")
-print(f"Saved to {OUTPUT_INDEX}")
+# Write with minimal whitespace for smaller file size
+with open(OUTPUT_INDEX, "w", encoding="utf-8") as f:
+    json.dump(forward_index, f, separators=(',', ':'))
+
+print(f"✓ Forward index built successfully!")
+print(f"✓ Total documents: {len(forward_index):,}")
+print(f"✓ Format: token_id -> [total_freq, [positions], title, authors, categories, report_no, journal, abstract, update_date]")
+print(f"✓ Saved to {OUTPUT_INDEX}")
+
+total_postings = sum(len(doc_data) for doc_data in forward_index.values())
+avg_terms = total_postings / len(forward_index) if forward_index else 0
+print(f"✓ Average unique terms per document: {avg_terms:.1f}")
