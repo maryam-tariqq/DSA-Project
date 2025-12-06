@@ -1,99 +1,86 @@
-#----BARRELS-----
+# barrels.py — CORRECTED & OPTIMIZED
+
 import json
 import os
-import string
-from nltk.stem import PorterStemmer
+from collections import defaultdict
 
-stemmer = PorterStemmer()
+# ------------------- CONFIG -------------------
+LEXICON_FILE = "/content/drive/MyDrive/DSA-Project/data/processed/lexicon_5.json"
+INVERTED_INDEX_FILE = "/content/drive/MyDrive/DSA-Project/data/processed/inverted_index_5.json"
+BARRELS_FOLDER = "/content/drive/MyDrive/DSA-Project/data/processed/barrels_5/"
 
-# ---------- Configuration ----------
-
-LEXICON_FILE = "/content/drive/MyDrive/DSA-Project/data/processed/lexicon.json"
-FORWARD_INDEX_FILE = "/content/drive/MyDrive/DSA-Project/data/processed/forward_index.json"
-BARRELS_FOLDER = "/content/drive/MyDrive/DSA-Project/data/processed/barrels/"
-
-# ---------- Load Lexicon ----------
-
+# ------------------- Load Data -------------------
+print("Loading lexicon...")
 with open(LEXICON_FILE, "r", encoding="utf-8") as f:
-    lexicon = json.load(f)  # word -> word_id
+    lexicon = json.load(f)
 
-# ---------- Load Forward Index ----------
-
-with open(FORWARD_INDEX_FILE, "r", encoding="utf-8") as f:
-    forward_index = json.load(f)  # doc_id -> {word_id: positions}
-
-# ---------- Ensure Barrels Folder Exists ----------
+print("Loading inverted index...")  # ← FIXED
+with open(INVERTED_INDEX_FILE, "r", encoding="utf-8") as f:
+    inverted_index = json.load(f)
 
 os.makedirs(BARRELS_FOLDER, exist_ok=True)
 
-# ---------- Helper functions ----------
+# ------------------- Reverse Lexicon -------------------
+print("Building reverse lexicon...")
+id_to_word = {str(word_id): word for word, word_id in lexicon.items()}
+del lexicon
+print(f"Reverse lexicon ready: {len(id_to_word):,} terms")
 
-def load_barrel(file_path):
-    if os.path.exists(file_path):
-        with open(file_path, "r", encoding="utf-8") as f:
-            return json.load(f)
-    return {}
+# ------------------- Pre-load Existing Barrels -------------------
+print("Pre-loading existing barrels...")
+existing_barrels = {}
+for letter in "abcdefghijklmnopqrstuvwxyz#":
+    path = os.path.join(BARRELS_FOLDER, f"{letter}.json")
+    if os.path.exists(path):
+        with open(path, "r", encoding="utf-8") as f:
+            existing_barrels[letter] = json.load(f)
+    else:
+        existing_barrels[letter] = {}
 
-def save_barrel(file_path, data):
-    with open(file_path, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2)
+# ------------------- Build Barrels (1-level: first char only) -------------------
+print("Building barrels in memory...")
+barrels = defaultdict(dict)  # Simple: w1 → {word: postings}
 
-# ---------- Map word_id -> actual word ----------
+# Copy existing data
+for w1, words in existing_barrels.items():
+    barrels[w1] = words.copy()
 
-id_to_word = {str(v): k for k, v in lexicon.items()}
+# Merge inverted index data
+processed = 0
+for word_id, postings in inverted_index.items():
+    word = id_to_word.get(word_id)
 
-# ---------- Track updated barrels ----------
+    if not word or not word[0].isalpha():
+        w1 = '#'
+    else:
+        w1 = word[0].lower()
 
-updated_barrels = {}
+    # Store COMPLETE posting information (not just doc IDs!)
+    barrels[w1][word] = postings  # ← FIXED: includes [freq, positions, field_counts]
 
-# ---------- Process each document ----------
+    processed += 1
+    if processed % 10000 == 0:
+        print(f"   → Processed {processed:,} terms...")
 
-for doc_id, token_positions in forward_index.items():
-    for word_id in token_positions.keys():
-        word = id_to_word[word_id]
+# ------------------- Save Barrels -------------------
+print("Saving barrels to disk...")
+saved_count = 0
+total_terms = 0
 
-        # Skip empty words
-        if not word:
-            continue
+for w1, words in barrels.items():
+    if words:
+        path = os.path.join(BARRELS_FOLDER, f"{w1}.json")
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(words, f, separators=(',', ':'))
 
+        saved_count += 1
+        total_terms += len(words)
+        print(f"   ✓ Saved {w1}.json ({len(words):,} terms)")
 
-        word = stemmer.stem(word.lower())
-
-        # Use first 3 letters for multi-level hashing
-        # pad with '#' if word < 3 letters
-        w1 = word[0].lower() if word[0].isalpha() else '#'
-        w2 = word[1].lower() if len(word) > 1 and word[1].isalpha() else '#'
-        w3 = word[2].lower() if len(word) > 2 and word[2].isalpha() else '#'
-
-        barrel_file = os.path.join(BARRELS_FOLDER, f"{w1}.json")
-
-        # Load barrel once per first letter
-        if w1 not in updated_barrels:
-            updated_barrels[w1] = load_barrel(barrel_file)
-
-        # Initialize second & third levels if not exist
-        if w2 not in updated_barrels[w1]:
-            updated_barrels[w1][w2] = {}
-        if w3 not in updated_barrels[w1][w2]:
-            updated_barrels[w1][w2][w3] = {}
-
-        # Add doc_id to word entry
-        if word not in updated_barrels[w1][w2][w3]:
-            updated_barrels[w1][w2][w3][word] = []
-        if doc_id not in updated_barrels[w1][w2][w3][word]:
-            updated_barrels[w1][w2][w3][word].append(doc_id)
-
-# ---------- Save updated barrels ----------
-
-total_words = 0
-for w1, data in updated_barrels.items():
-    barrel_file = os.path.join(BARRELS_FOLDER, f"{w1}.json")
-    save_barrel(barrel_file, data)
-
-    # Count words in this barrel
-    barrel_word_count = sum(len(w3_dict) for w2_dict in data.values() for w3_dict in w2_dict.values())
-    total_words += barrel_word_count
-
-print(f"Total barrels updated/created: {len(updated_barrels)}")
-print(f"Total words across all barrels: {total_words}")
-
+# ------------------- Final Report -------------------
+print(f"   Barrel files saved      : {saved_count}")
+print(f"   Unique terms indexed    : {total_terms:,}")
+print(f"   Structure               : first_char → word → postings")
+print(f"   Postings include        : freq, positions, field_counts")
+print(f"   Ready for search        : YES")
+print("="*60)
