@@ -14,7 +14,7 @@ FIELD_MAP = {
     "authors": 3,
     "categories": 4,
     "report_no": 5,
-    "journal": 6,
+    "journal-ref": 6,
     "abstract": 7,
     "update_date": 8
 }
