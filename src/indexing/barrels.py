@@ -5,9 +5,9 @@ import os
 from collections import defaultdict
 
 # ------------------- CONFIG -------------------
-LEXICON_FILE = "/content/drive/MyDrive/DSA-Project/data/processed/lexicon_5.json"
-INVERTED_INDEX_FILE = "/content/drive/MyDrive/DSA-Project/data/processed/inverted_index_5.json"
-BARRELS_FOLDER = "/content/drive/MyDrive/DSA-Project/data/processed/barrels_5/"
+LEXICON_FILE = "../../data/processed/lexicon.json"
+INVERTED_INDEX_FILE = "../../data/processed/inverted_index.json"
+BARRELS_FOLDER = "../../data/processed/barrels/"
 
 # ------------------- Load Data -------------------
 print("Loading lexicon...")
