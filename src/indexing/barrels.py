@@ -1,9 +1,8 @@
-
 import json
 import os
 from collections import defaultdict
 
-# CONFIG
+
 # File locations for barrel files, the lexicon, and the inverted index.
 LEXICON_FILE = "../../data/processed/lexicon.json"
 INVERTED_INDEX_FILE = "../../data/processed/inverted_index.json"
@@ -40,7 +39,7 @@ for letter in "abcdefghijklmnopqrstuvwxyz#":
     else:
         existing_barrels[letter] = {}
 
-# Build Barrels in Memory
+# Build Barrels 
 # Barrels are arranged according to each word's initial character.
 # For instance, "apple" → barrel 'a', "network" → barrel 'n', and numbers/symbols → '#'
 print("Building barrels in memory...")
