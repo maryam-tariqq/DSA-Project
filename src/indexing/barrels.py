@@ -1,91 +1,73 @@
 import json
 import os
-from collections import defaultdict
 
+# ------------------- CONFIG -------------------
+LEXICON_FILE = "../../data/processed/lexicon_5.json"
+INVERTED_INDEX_FILE = "../../data/processed/inverted_index_5.json"
+BARRELS_FOLDER = "../../data/processed/barrels_5"
 
-# File locations for barrel files, the lexicon, and the inverted index.
-LEXICON_FILE = "../../data/processed/lexicon.json"
-INVERTED_INDEX_FILE = "../../data/processed/inverted_index.json"
-BARRELS_FOLDER = "../../data/processed/barrels/"
+LETTERS = "abcdefghijklmnopqrstuvwxyz#"
 
-#Load the necessary data
-print("Loading lexicon...")
+# ------------------- LOAD CORE DATA -------------------
 with open(LEXICON_FILE, "r", encoding="utf-8") as f:
-    lexicon = json.load(f)
+    lexicon = json.load(f)              # word -> word_id
 
-print("Loading inverted index...") 
 with open(INVERTED_INDEX_FILE, "r", encoding="utf-8") as f:
-    inverted_index = json.load(f)
+    inverted_index = json.load(f)       # word_id -> postings
 
-# Verify the existence of the output folder
-os.makedirs(BARRELS_FOLDER, exist_ok=True)
-
-# Reverse Lexicon
-# To access words using IDs, convert {word → id} to {id → word}.
-print("Building reverse lexicon...")
-id_to_word = {str(word_id): word for word, word_id in lexicon.items()}
+# Reverse lexicon ONLY for routing
+id_to_word = {str(v): k for k, v in lexicon.items()}
 del lexicon
-print(f"Reverse lexicon ready: {len(id_to_word):,} terms")
 
-# Load Existing Barrels (if any)
-# To prevent new data from being overwritten, pre-load previously saved barrels.
-print("Pre-loading existing barrels...")
-existing_barrels = {}
-for letter in "abcdefghijklmnopqrstuvwxyz#":
-    path = os.path.join(BARRELS_FOLDER, f"{letter}.json")
+# ------------------- LOAD EXISTING BARRELS -------------------
+barrels = {}
+
+for ch in LETTERS:
+    path = os.path.join(BARRELS_FOLDER, f"{ch}.json")
     if os.path.exists(path):
         with open(path, "r", encoding="utf-8") as f:
-            existing_barrels[letter] = json.load(f)
+            barrels[ch] = json.load(f)
     else:
-        existing_barrels[letter] = {}
+        # ⚠️ Do NOT create new barrel files later
+        barrels[ch] = {}
 
-# Build Barrels 
-# Barrels are arranged according to each word's initial character.
-# For instance, "apple" → barrel 'a', "network" → barrel 'n', and numbers/symbols → '#'
-print("Building barrels in memory...")
-barrels = defaultdict(dict)  # Simple: w1 → {word: postings}
+print("✅ Existing barrels loaded")
 
-# Start by loading the current content.
-for w1, words in existing_barrels.items():
-    barrels[w1] = words.copy()
+# ------------------- MERGE (NO DUPLICATES) -------------------
+added = 0
+skipped = 0
 
-# Merge new inverted index entries into the barrels
-processed = 0
 for word_id, postings in inverted_index.items():
     word = id_to_word.get(word_id)
-# The '#' barrel is used for words that don't begin with A–Z.
+
     if not word or not word[0].isalpha():
-        w1 = '#'
+        barrel_key = "#"
     else:
-        w1 = word[0].lower()
+        barrel_key = word[0].lower()
 
-    # # Save the complete posting list, including field counts, positions, and frequency.
-    barrels[w1][word] = postings 
+    barrel = barrels.get(barrel_key)
+    if barrel is None:
+        continue  # absolute safety
 
-    processed += 1
-    if processed % 10000 == 0:
-        print(f"   → Processed {processed:,} terms...")
+    # 🔒 KEY CHECK: do NOT overwrite existing entries
+    if word_id in barrel:
+        skipped += 1
+        continue
 
-# Save Barrels 
-# To enable quicker search access in the future, write each barrel to a different JSON file.
-print("Saving barrels to disk...")
-saved_count = 0
-total_terms = 0
+    barrel[word_id] = postings
+    added += 1
 
-for w1, words in barrels.items():
-    if words:
-        path = os.path.join(BARRELS_FOLDER, f"{w1}.json")
+# ------------------- SAVE BACK (SAME FILES) -------------------
+for ch, data in barrels.items():
+    path = os.path.join(BARRELS_FOLDER, f"{ch}.json")
+    if os.path.exists(path):  # 🔒 never create new files
         with open(path, "w", encoding="utf-8") as f:
-            json.dump(words, f, separators=(',', ':'))
+            json.dump(data, f, separators=(',', ':'))
 
-        saved_count += 1
-        total_terms += len(words)
-        print(f"   ✓ Saved {w1}.json ({len(words):,} terms)")
-
-#  Final Report
-print(f"   Barrel files saved      : {saved_count}")
-print(f"   Unique terms indexed    : {total_terms:,}")
-print(f"   Structure               : first_char → word → postings")
-print(f"   Postings include        : freq, positions, field_counts")
-print(f"   Ready for search        : YES")
-print("="*60)
+print("=" * 60)
+print("Incremental barrel update complete")
+print(f"New entries added   : {added:,}")
+print(f"Existing skipped    : {skipped:,}")
+print("Barrel structure    : letter → word_id → postings")
+print("Words stored        : NO")
+print("IDs stored          : YES")
