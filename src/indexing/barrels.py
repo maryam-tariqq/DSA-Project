@@ -1,7 +1,7 @@
 import json
 import os
 
-# ------------------- CONFIG -------------------
+
 LEXICON_FILE = "../../data/processed/lexicon_5.json"
 INVERTED_INDEX_FILE = "../../data/processed/inverted_index_5.json"
 BARRELS_FOLDER = "../../data/processed/barrels_5"
@@ -19,7 +19,7 @@ with open(INVERTED_INDEX_FILE, "r", encoding="utf-8") as f:
 id_to_word = {str(v): k for k, v in lexicon.items()}
 del lexicon
 
-# ------------------- LOAD EXISTING BARRELS -------------------
+#  LOAD EXISTING BARRELS 
 barrels = {}
 
 for ch in LETTERS:
@@ -28,12 +28,12 @@ for ch in LETTERS:
         with open(path, "r", encoding="utf-8") as f:
             barrels[ch] = json.load(f)
     else:
-        # ⚠️ Do NOT create new barrel files later
+        #  Do NOT create new barrel files later
         barrels[ch] = {}
 
-print("✅ Existing barrels loaded")
+print("Existing barrels loaded")
 
-# ------------------- MERGE (NO DUPLICATES) -------------------
+#  MERGE 
 added = 0
 skipped = 0
 
@@ -47,9 +47,9 @@ for word_id, postings in inverted_index.items():
 
     barrel = barrels.get(barrel_key)
     if barrel is None:
-        continue  # absolute safety
+        continue  
 
-    # 🔒 KEY CHECK: do NOT overwrite existing entries
+    # KEY CHECK: do NOT overwrite existing entries
     if word_id in barrel:
         skipped += 1
         continue
@@ -57,10 +57,10 @@ for word_id, postings in inverted_index.items():
     barrel[word_id] = postings
     added += 1
 
-# ------------------- SAVE BACK (SAME FILES) -------------------
+# SAVE BACK (SAME FILES) 
 for ch, data in barrels.items():
     path = os.path.join(BARRELS_FOLDER, f"{ch}.json")
-    if os.path.exists(path):  # 🔒 never create new files
+    if os.path.exists(path):  #  never create new files
         with open(path, "w", encoding="utf-8") as f:
             json.dump(data, f, separators=(',', ':'))
 
