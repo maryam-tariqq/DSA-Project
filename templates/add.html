@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Document - ArXiv Search</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 40px auto;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 30px;
+        text-align: center;
+        color: white;
+      }
+
+      .header h1 {
+        font-family: "Outfit", sans-serif;
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
+
+      .header p {
+        opacity: 0.9;
+        font-size: 0.95rem;
+      }
+
+      .back-link {
+        display: inline-block;
+        color: white;
+        text-decoration: none;
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+        opacity: 0.9;
+        transition: opacity 0.2s;
+      }
+
+      .back-link:hover {
+        opacity: 1;
+      }
+
+      .content {
+        padding: 40px;
+      }
+
+      .tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #e5e7eb;
+      }
+
+      .tab {
+        padding: 12px 24px;
+        background: none;
+        border: none;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #6b7280;
+        cursor: pointer;
+        transition: all 0.3s;
+        border-bottom: 3px solid transparent;
+        margin-bottom: -2px;
+      }
+
+      .tab.active {
+        color: #667eea;
+        border-bottom-color: #667eea;
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+      }
+
+      label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #374151;
+        font-size: 0.95rem;
+      }
+
+      input[type="text"],
+      input[type="url"],
+      textarea {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-family: inherit;
+        transition: border-color 0.3s;
+      }
+
+      input[type="text"]:focus,
+      input[type="url"]:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .file-upload-area {
+        border: 2px dashed #d1d5db;
+        border-radius: 8px;
+        padding: 40px;
+        text-align: center;
+        transition: all 0.3s;
+        cursor: pointer;
+        background: #f9fafb;
+      }
+
+      .file-upload-area:hover {
+        border-color: #667eea;
+        background: #f3f4f6;
+      }
+
+      .file-upload-area.dragover {
+        border-color: #667eea;
+        background: #eef2ff;
+      }
+
+      .file-icon {
+        font-size: 3rem;
+        margin-bottom: 15px;
+        color: #9ca3af;
+      }
+
+      .file-upload-text {
+        color: #6b7280;
+        margin-bottom: 10px;
+      }
+
+      .file-upload-hint {
+        font-size: 0.85rem;
+        color: #9ca3af;
+      }
+
+      input[type="file"] {
+        display: none;
+      }
+
+      .file-info {
+        margin-top: 15px;
+        padding: 12px;
+        background: #f0fdf4;
+        border: 1px solid #86efac;
+        border-radius: 8px;
+        color: #166534;
+        font-size: 0.9rem;
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 14px 28px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+      }
+
+      .submit-btn:active {
+        transform: translateY(0);
+      }
+
+      .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .message {
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        font-size: 0.95rem;
+      }
+
+      .message.success {
+        background: #d1fae5;
+        color: #065f46;
+        border: 1px solid #86efac;
+      }
+
+      .message.error {
+        background: #fee2e2;
+        color: #991b1b;
+        border: 1px solid #fca5a5;
+      }
+
+      .helper-text {
+        font-size: 0.85rem;
+        color: #6b7280;
+        margin-top: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <a href="/" class="back-link">← Back to Search</a>
+        <h1>Add Document to Index</h1>
+        <p>Upload a file or manually enter document details</p>
+      </div>
+
+      <div class="content">
+        <div id="message-container"></div>
+
+        <div class="tabs">
+          <button class="tab active" onclick="switchTab('upload')">
+            Upload File
+          </button>
+          <button class="tab" onclick="switchTab('manual')">
+            Manual Entry
+          </button>
+        </div>
+
+        <!-- Upload Tab -->
+        <div id="upload-tab" class="tab-content active">
+          <form id="upload-form" enctype="multipart/form-data">
+            <div class="form-group">
+              <label
+                for="file-upload"
+                class="file-upload-area"
+                id="drop-area"
+              >
+                <div class="file-icon">📄</div>
+                <div class="file-upload-text">
+                  Click to upload or drag and drop
+                </div>
+                <div class="file-upload-hint">
+                  Supports: JSON, CSV, TXT files (max 10MB)
+                </div>
+                <input
+                  type="file"
+                  id="file-upload"
+                  name="file"
+                  accept=".json,.csv,.txt"
+                />
+              </label>
+              <div id="file-info" class="file-info" style="display: none"></div>
+            </div>
+
+            <button type="submit" class="submit-btn">Upload & Index</button>
+          </form>
+        </div>
+
+        <!-- Manual Entry Tab -->
+        <div id="manual-tab" class="tab-content">
+          <form id="manual-form">
+            <div class="form-group">
+              <label for="doc-id">Document ID *</label>
+              <input
+                type="text"
+                id="doc-id"
+                name="doc_id"
+                placeholder="e.g., 2301.12345"
+                required
+              />
+              <div class="helper-text">Unique identifier for this document</div>
+            </div>
+
+            <div class="form-group">
+              <label for="title">Title *</label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                placeholder="Enter paper title"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="authors">Authors</label>
+              <input
+                type="text"
+                id="authors"
+                name="authors"
+                placeholder="e.g., John Doe, Jane Smith"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="abstract">Abstract *</label>
+              <textarea
+                id="abstract"
+                name="abstract"
+                placeholder="Enter paper abstract or summary"
+                required
+              ></textarea>
+              <div class="helper-text">
+                This will be used for semantic search
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="paper-url">Paper URL</label>
+              <input
+                type="url"
+                id="paper-url"
+                name="paper_url"
+                placeholder="https://arxiv.org/abs/..."
+              />
+            </div>
+
+            <button type="submit" class="submit-btn">Add to Index</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Tab switching
+      function switchTab(tabName) {
+        document.querySelectorAll(".tab").forEach((tab) => {
+          tab.classList.remove("active");
+        });
+        document.querySelectorAll(".tab-content").forEach((content) => {
+          content.classList.remove("active");
+        });
+
+        event.target.classList.add("active");
+        document.getElementById(tabName + "-tab").classList.add("active");
+        clearMessage();
+      }
+
+      // File upload handling
+      const dropArea = document.getElementById("drop-area");
+      const fileInput = document.getElementById("file-upload");
+      const fileInfo = document.getElementById("file-info");
+
+      dropArea.addEventListener("click", () => fileInput.click());
+
+      ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+      });
+
+      function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      ["dragenter", "dragover"].forEach((eventName) => {
+        dropArea.addEventListener(
+          eventName,
+          () => dropArea.classList.add("dragover"),
+          false
+        );
+      });
+
+      ["dragleave", "drop"].forEach((eventName) => {
+        dropArea.addEventListener(
+          eventName,
+          () => dropArea.classList.remove("dragover"),
+          false
+        );
+      });
+
+      dropArea.addEventListener("drop", handleDrop, false);
+
+      function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        fileInput.files = files;
+        displayFileInfo(files[0]);
+      }
+
+      fileInput.addEventListener("change", function () {
+        if (this.files.length > 0) {
+          displayFileInfo(this.files[0]);
+        }
+      });
+
+      function displayFileInfo(file) {
+        fileInfo.style.display = "block";
+        fileInfo.innerHTML = `📎 Selected: <strong>${file.name}</strong> (${(
+          file.size / 1024
+        ).toFixed(2)} KB)`;
+      }
+
+      // Message handling
+      function showMessage(text, type) {
+        const container = document.getElementById("message-container");
+        container.innerHTML = `<div class="message ${type}">${text}</div>`;
+      }
+
+      function clearMessage() {
+        document.getElementById("message-container").innerHTML = "";
+      }
+
+      // Upload form submission
+      document
+        .getElementById("upload-form")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const formData = new FormData(this);
+          const submitBtn = this.querySelector(".submit-btn");
+
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Uploading...";
+
+          try {
+            const response = await fetch("/api/upload", {
+              method: "POST",
+              body: formData,
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+              showMessage(
+                `✓ Successfully indexed ${
+                  result.count || "document(s)"
+                }!`,
+                "success"
+              );
+              this.reset();
+              fileInfo.style.display = "none";
+            } else {
+              showMessage(`✗ Error: ${result.error || "Upload failed"}`, "error");
+            }
+          } catch (error) {
+            showMessage(`✗ Error: ${error.message}`, "error");
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Upload & Index";
+          }
+        });
+
+      // Manual form submission
+      document
+        .getElementById("manual-form")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const formData = new FormData(this);
+          const data = Object.fromEntries(formData);
+          const submitBtn = this.querySelector(".submit-btn");
+
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Adding...";
+
+          try {
+            const response = await fetch("/api/add_document", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+              showMessage(
+                "✓ Document successfully added to index!",
+                "success"
+              );
+              this.reset();
+            } else {
+              showMessage(`✗ Error: ${result.error || "Failed to add document"}`, "error");
+            }
+          } catch (error) {
+            showMessage(`✗ Error: ${error.message}`, "error");
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Add to Index";
+          }
+        });
+    </script>
+  </body>
+</html>

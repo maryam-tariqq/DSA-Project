@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ query }} - Search Results</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+
+    <style>
+      .add-document-btn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        padding: 14px 24px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        z-index: 1000;
+      }
+
+      .add-document-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+      }
+
+      .add-document-btn:active {
+        transform: translateY(-1px);
+      }
+
+      .add-icon {
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body class="results-body">
+    <!-- Sticky Header -->
+    <header class="results-header">
+      <div class="header-content">
+        <a href="/" class="small-logo">
+          <span class="gradient-text">ArXiv</span>
+        </a>
+
+        <form
+          action="/search"
+          method="get"
+          class="small-search-form"
+          autocomplete="off"
+        >
+          <input type="text" name="q" value="{{ query }}" required />
+          <button type="submit">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </header>
+
+    <div class="results-container">
+      <p class="results-meta">
+        Found {{ results|length }} relevant results for
+        "<strong>{{ query }}</strong>"
+      </p>
+
+      <div class="results-list">
+        {% if results %}
+          {% for result in results %}
+            <div class="result-card">
+              <div class="result-header">
+                <a
+                  href="{{ result.paper_url }}"
+                  target="_blank"
+                  class="result-title"
+                >
+                  {{ result.title }}
+                </a>
+              </div>
+
+              <p class="result-authors">
+                {% if result.authors %}
+                  {{ result.authors[:100] }}
+                  {% if result.authors|length > 100 %}...{% endif %}
+                {% else %}
+                  Unknown Author
+                {% endif %}
+              </p>
+
+              <div class="result-abstract">
+                {{ result.abstract }}
+              </div>
+
+              <div class="result-footer">
+                <a
+                  href="{{ result.paper_url }}"
+                  target="_blank"
+                  class="read-more-btn"
+                >
+                  Read Paper &rarr;
+                </a>
+                <span class="doc-id">ID: {{ result.doc_id }}</span>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="no-results">
+            <p>No results found using Semantic Search.</p>
+            <p>Try using broader keywords.</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Add Document Button -->
+    <a href="/add" class="add-document-btn">
+      <span class="add-icon">+</span>
+      Add Document
+    </a>
+  </body>
+</html>
