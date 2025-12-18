@@ -21,26 +21,33 @@ A **high-performance semantic search engine** for ArXiv research papers, built w
 - Git
 
 ### **Step 1: Clone the Repository**
-git clone <repo-link>
+```bash
+git clone _<repo-link>_
 cd DSA-Project
+```
 
 ### **Step 2: Install Dependencies**
 install necessary dependencies:
+```bash
 pip install flask nltk numpy
+```
 
 ### **Step 3: Download NLTK Data**
 Run Python and execute:
-python
+```python
 import nltk
 nltk.download('stopwords')
 nltk.download('punkt')
+```
 
 
 ### **Step 4: Prepare the Dataset**
 1. Place your ArXiv dataset JSON file in `data/raw/arxiv_100k.json`
 2. Run preprocessing:
+```bash
 cd src/preprocessing
 python PreProcessing.py
+```
 
 
 ### **Step 5: Build the Index**
