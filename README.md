@@ -9,9 +9,11 @@ A **high-performance semantic search engine** for ArXiv research papers, built w
 - **Hash Maps**: Lexicon and posting list storage
 
 ### **Frontend**
-- **HTML5 & CSS3**: Responsive web interface
+- **HTML & CSS**: Responsive web interface
 
----
+### **Backend**
+- **Flask**
+
 
 ## 💻 Installation
 
