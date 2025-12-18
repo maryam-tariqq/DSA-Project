@@ -61,7 +61,6 @@ python inverted_index.py
 python barrels.py
 ```
 
----
 
 ## 🚀 Usage
 
