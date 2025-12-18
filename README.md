@@ -83,3 +83,4 @@ python barrels.py
    ```
 
 **Now you can search multiple research papers and add documents too if you want!**
+In the data folder you can find a part of the dataset and the preprocessed dataset (only 5 documents).
